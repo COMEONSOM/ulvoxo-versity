@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/static/css/main.cd140045.css",
+    "main.js": "/static/js/main.8caf2a7e.js",
+    "static/media/instagram-logo.png": "/static/media/instagram-logo.db2612bd586501d9ed3e.png",
+    "static/media/banner2.png": "/static/media/banner2.bc447a85a91a5386b726.png",
+    "static/media/fa-solid-900.ttf": "/static/media/fa-solid-900.2582b0e4bcf85eceead0.ttf",
+    "static/media/banner1.png": "/static/media/banner1.505542de6975a623faea.png",
+    "static/media/FinanceQR.png": "/static/media/FinanceQR.867814793e41131a99f9.png",
+    "static/media/PromptQR.png": "/static/media/PromptQR.ae0e288f90f939a7a266.png",
+    "static/media/e1.png": "/static/media/e1.96f531da81ba2724f755.png",
+    "static/media/fa-brands-400.ttf": "/static/media/fa-brands-400.1815e00441357e01619e.ttf",
+    "static/media/mf.jpg": "/static/media/mf.f8d29e09470104f62e89.jpg",
+    "static/media/prompt.jpg": "/static/media/prompt.9ea77a15f9b09bc0bc36.jpg",
+    "static/media/fa-solid-900.woff2": "/static/media/fa-solid-900.2463b90d9a316e4e5294.woff2",
+    "static/media/fa-brands-400.woff2": "/static/media/fa-brands-400.c210719e60948b211a12.woff2",
+    "static/media/fa-regular-400.ttf": "/static/media/fa-regular-400.914997e1bdfc990d0897.ttf",
+    "static/media/whatsapp-logo.png": "/static/media/whatsapp-logo.31d4b1d27126bcc1f665.png",
+    "static/media/facebook-logo.png": "/static/media/facebook-logo.790642551cd99bb66a7e.png",
+    "static/media/logo.webp": "/static/media/logo.76760b248cb00029ce7e.webp",
+    "static/media/fa-regular-400.woff2": "/static/media/fa-regular-400.89999bdf5d835c012025.woff2",
+    "static/media/fa-v4compatibility.ttf": "/static/media/fa-v4compatibility.da94ef451f4969af06e6.ttf",
+    "static/media/fa-v4compatibility.woff2": "/static/media/fa-v4compatibility.ea8f94e1d22e0d35ccd4.woff2",
+    "index.html": "/index.html",
+    "main.cd140045.css.map": "/static/css/main.cd140045.css.map",
+    "main.8caf2a7e.js.map": "/static/js/main.8caf2a7e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cd140045.css",
+    "static/js/main.8caf2a7e.js"
+  ]
+}

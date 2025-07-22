@@ -1,0 +1,137 @@
+/* src/styles/Banner.css */
+
+/* ───────────────────────────────────────────────
+   Root Variables
+─────────────────────────────────────────────── */
+:root {
+    --banner-bg: #cccccc;
+    --text-color: #ffffff;
+    --text-hover: #000000;
+    --arrow-bg: #000000;
+    --arrow-bg-hover: #ffffff;
+    --dot-color: #000000;
+    --dot-active-color: #000000;
+
+    --border-radius-sm: 5px;
+    --border-radius-md: 10px;
+    --banner-margin-lg: 40px;
+    --banner-padding-lg: 20px;
+    --transition-speed: 0.8s;
+}
+
+/* ───────────────────────────────────────────────
+   Banner Wrapper
+─────────────────────────────────────────────── */
+.home-banner {
+    position: relative;
+    overflow: hidden;
+    margin: var(--banner-margin-lg);
+    padding: var(--banner-padding-lg);
+    background: var(--banner-bg);
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+}
+
+/* ───────────────────────────────────────────────
+   Banner Slide Container
+─────────────────────────────────────────────── */
+.banner-container {
+    display: flex;
+    width: 100%;
+    height: auto;
+    transition: transform var(--transition-speed) ease-in-out;
+}
+
+/* ───────────────────────────────────────────────
+   Individual Slide
+─────────────────────────────────────────────── */
+.banner-slide {
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 15px;
+    height: auto;
+    box-sizing: border-box;
+}
+
+.banner-image {
+    width: 100%;
+    height: auto;
+    max-height: calc(100vh - 80px);
+    object-fit: contain;
+    border-radius: var(--border-radius-md);
+}
+
+/* ───────────────────────────────────────────────
+   Arrow Buttons
+─────────────────────────────────────────────── */
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--arrow-bg);
+    color: var(--text-color);
+    border: none;
+    padding: 15px 25px;
+    cursor: pointer;
+    font-size: 36px;
+    z-index: 1;
+    border-radius: var(--border-radius-sm);
+    transition: background-color 0.3s ease;
+}
+
+.left-arrow {
+    left: 10px;
+}
+
+.right-arrow {
+    right: 10px;
+}
+
+.arrow:hover {
+    background-color: var(--arrow-bg-hover);
+    color: var(--text-hover);
+}
+
+/* ───────────────────────────────────────────────
+   Dots Navigation
+─────────────────────────────────────────────── */
+.dots-container {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background-color: var(--dot-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: var(--dot-active-color);
+}
+
+/* ───────────────────────────────────────────────
+   Responsive Design
+─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .home-banner {
+        margin: 30px;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-banner {
+        margin: 20px;
+        padding: 10px;
+    }
+}

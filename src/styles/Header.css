@@ -1,0 +1,152 @@
+/* src/styles/Header.css */
+
+/* ───────────────────────────────────────────────
+   Root Variables
+─────────────────────────────────────────────── */
+:root {
+  --header-bg: #1a202c;
+  --button-hover-bg: #2d3748;
+  --text-color: #ffffff;
+  --secondary-text: #cbd5e0;
+
+  --profile-border: #ffffff;
+  --profile-dropdown-bg: #ffffff;
+  --profile-text: #000000;
+  --profile-shadow: rgba(0, 0, 0, 0.15);
+
+  --logout-btn-bg: #d9534f;
+  --logout-btn-hover: #c9302c;
+
+  --border-radius-sm: 5px;
+  --border-radius-md: 8px;
+  --spacing-sm: 10px;
+  --spacing-md: 30px;
+  --spacing-lg: 50px;
+
+  --font-size-lg: 1.4rem;
+  --font-size-md: 1rem;
+  --font-size-sm: 0.9rem;
+
+  --transition-speed: 0.2s ease;
+}
+
+/* ───────────────────────────────────────────────
+   Header Container
+─────────────────────────────────────────────── */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--header-bg);
+  color: var(--text-color);
+  flex-wrap: wrap;
+}
+
+/* ───────────────────────────────────────────────
+   Company Info Section
+─────────────────────────────────────────────── */
+.company-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.company-logo {
+  width: 60px;
+  height: auto;
+  margin: var(--spacing-sm);
+  border-radius: 50%;
+}
+
+.CompanyName {
+  font-size: var(--font-size-lg);
+  font-weight: bold;
+}
+
+.CompanySlogan {
+  font-size: var(--font-size-sm);
+  color: var(--secondary-text);
+}
+
+/* ───────────────────────────────────────────────
+   Navigation Buttons
+─────────────────────────────────────────────── */
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-button {
+  background: none;
+  color: var(--text-color);
+  border: none;
+  padding: 8px 16px;
+  font-size: var(--font-size-md);
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
+}
+
+.nav-button:hover {
+  background-color: var(--button-hover-bg);
+  border-radius: var(--border-radius-sm);
+}
+
+/* ───────────────────────────────────────────────
+   Profile Image & Dropdown
+─────────────────────────────────────────────── */
+.profile-container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-image {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--profile-border);
+  cursor: pointer;
+  transition: transform var(--transition-speed);
+}
+
+.profile-image:hover {
+  transform: scale(1.05);
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: var(--profile-dropdown-bg);
+  color: var(--profile-text);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-md);
+  box-shadow: 0px 4px 10px var(--profile-shadow);
+  z-index: 10;
+  min-width: 200px;
+  text-align: left;
+}
+
+.profile-dropdown p {
+  margin: 5px 0;
+}
+
+/* ───────────────────────────────────────────────
+   Logout Button
+─────────────────────────────────────────────── */
+.logout-btn {
+  margin-top: var(--spacing-sm);
+  padding: 6px 12px;
+  background-color: var(--logout-btn-bg);
+  color: var(--text-color);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  width: 100%;
+  transition: background-color var(--transition-speed);
+}
+
+.logout-btn:hover {
+  background-color: var(--logout-btn-hover);
+}

@@ -1,0 +1,193 @@
+/* src/styles/AvailableCourses.css */
+
+/* ───────────────────────────────────────────────
+   Root Theme Variables
+─────────────────────────────────────────────── */
+:root {
+  /* Backgrounds & Shadows */
+  --bg-color: #ffffff;
+  --light-shadow: #ffffff;
+  --dark-shadow: #9a9a9a;
+  --inset-shadow: #651cdb;
+
+  /* Text Colors */
+  --primary-text: #000000;
+  --accent-color: #000000;
+  --button-text: #ffffff;
+
+  /* Button Colors */
+  --button-bg: #064dff;
+  --course-bg: #7643f7;
+
+  /* Borders & Radius */
+  --border-radius: 20px;
+  --border-radius-sm: 10px;
+
+  /* Spacing */
+  --space-xs: 10px;
+  --space-sm: 20px;
+  --space-md: 25px;
+  --space-lg: 30px;
+
+  /* Font */
+  --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  /* Transitions */
+  --transition-speed: 0.3s;
+}
+
+/* ───────────────────────────────────────────────
+   Base Container
+─────────────────────────────────────────────── */
+.courses-container {
+  background: #ffffff;
+  margin: 2rem;
+  border-radius: 10px;
+  color: var(--primary-text);
+  font-family: var(--font-main);
+  padding: var(--space-xs);
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ───────────────────────────────────────────────
+   Course List Section
+─────────────────────────────────────────────── */
+.course-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-lg);
+  padding: 0;
+  list-style: none;
+}
+
+.course-item {
+  background: var(--course-bg);
+  color: var(--button-text);
+  padding: var(--space-sm);
+  text-align: center;
+  border-radius: 0.5rem;
+  width: 200px;
+  cursor: pointer;
+  box-shadow: 8px 8px 15px var(--dark-shadow),
+              -8px -8px 15px var(--light-shadow);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.course-item:hover {
+  transform: translateY(-5px);
+  box-shadow: inset 4px 4px 8px var(--inset-shadow),
+              inset -4px -4px 8px var(--inset-shadow);
+}
+
+.course-thumbnail {
+  width: 100%;
+  height: auto;
+  margin-bottom: var(--space-xs);
+  border-radius: var(--border-radius-sm);
+}
+
+/* ───────────────────────────────────────────────
+   Course Details
+─────────────────────────────────────────────── */
+.course-details {
+  background: var(--bg-color);
+  color: var(--primary-text);
+  padding: var(--space-md);
+  margin-top: var(--space-sm);
+  font-weight: bold;
+  border-radius: var(--border-radius);
+  width: 80%;
+  max-width: 600px;
+  height: auto;
+  box-shadow: 8px 8px 15px var(--dark-shadow),
+              -8px -8px 15px var(--light-shadow);
+}
+
+.course-details p {
+  margin: 4px 0;
+}
+
+/* ───────────────────────────────────────────────
+   Back Button
+─────────────────────────────────────────────── */
+.back-button {
+  background: var(--bg-color);
+  border: none;
+  border-radius: 0.5rem;
+  padding: var(--space-xs) var(--space-sm);
+  margin-bottom: var(--space-sm);
+  cursor: pointer;
+  box-shadow: 6px 6px 12px var(--dark-shadow);
+  transition: box-shadow var(--transition-speed);
+}
+
+.back-button:hover {
+  box-shadow: inset 4px 4px 8px var(--dark-shadow),
+              inset -4px -4px 8px var(--light-shadow);
+}
+
+/* ───────────────────────────────────────────────
+   Pricing & Payment Section
+─────────────────────────────────────────────── */
+.price-and-pay {
+  display: flex;
+  justify-content: space-between;
+  margin: var(--space-sm) 0;
+  gap: var(--space-sm);
+}
+
+.price {
+  background: var(--accent-color);
+  color: var(--button-text);
+  font-size: larger;
+  font-weight: bold;
+  padding: var(--space-xs) var(--space-sm);
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.pay-button {
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: var(--space-sm);
+  border-radius: 10%;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: var(--space-xs);
+  box-shadow: 6px 6px 12px var(--dark-shadow),
+              -6px -6px 12px var(--light-shadow);
+  transition: box-shadow var(--transition-speed);
+}
+
+.pay-button:hover {
+  box-shadow: inset 4px 4px 8px #4f504f,
+              inset -4px -4px 8px var(--button-bg);
+}
+
+/* ───────────────────────────────────────────────
+   QR Code Section
+─────────────────────────────────────────────── */
+.qr-section {
+  background: var(--bg-color);
+  padding: var(--space-md);
+  margin-top: var(--space-sm);
+  border-radius: var(--border-radius);
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 8px 8px 15px var(--dark-shadow),
+              -8px -8px 15px var(--light-shadow);
+}
+
+.qr-section img {
+  width: 200px;
+  margin: var(--space-xs) auto 0 auto;
+  display: block;
+  border-radius: var(--border-radius-sm);
+  box-shadow: 4px 4px 10px var(--dark-shadow),
+              -4px -4px 10px var(--light-shadow);
+}

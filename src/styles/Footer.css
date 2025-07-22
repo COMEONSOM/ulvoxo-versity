@@ -1,0 +1,173 @@
+/* src/styles/Footer.css */
+
+/*──────── 1) DESIGN TOKENS ────────*/
+:root {
+  /* Palette */
+  --clr-bg:           #080808;
+  --clr-surface:      #1e2131;
+  --clr-surface-alt:  #202336;
+  --clr-text:         #e5e8ff;
+  --clr-accent:       #5f6dff;
+  --clr-accent-glow:  rgba(95 109 255 / 0.45);
+
+  /* Neumorphic shadow */
+  --neu-offset: 8px;
+  --neu-blur:  16px;
+  --neu-light: rgba(255 255 255 / 0.07);
+  --neu-dark:  rgba(  0   0   0 / 0.55);
+
+  /* Spacing / radius */
+  --r: 0 rem;     /* card radius */
+  --s-xs: .4rem;   /* tiny gap    */
+  --s-sm: .8rem;   /* small       */
+  --s-md: 1.2rem;  /* medium      */
+  --s-lg: 0 rem;    /* large top/bottom padding */
+  --s-gap: 0 rem; /* gap between cards */
+
+  /* Typography */
+  --font-base: 'Inter','Segoe UI',sans-serif;
+  --fs-sm: .9rem;
+  --fs-md: 1rem;
+  --fs-lg: 1rem;
+}
+
+/*──────── 2) OUTER WRAPPER ────────*/
+.contact-container{
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  padding: var(--s-lg) var(--s-md);
+  font-family: var(--font-base);
+}
+
+/*──────── 3) GRID LAYOUT ────────*/
+.contact-follow-wrapper{
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+  gap: var(--s-gap);
+  grid-auto-flow: dense;
+}
+
+/*──────── 4) UNIVERSAL CARD STYLE ────────*/
+.contact-section,
+.follow-us-section,
+.typewriter-wrapper{
+  background: var(--clr-surface);
+  border-radius: var(--r);
+  padding: var(--s-md);
+  box-shadow:
+    calc(-1*var(--neu-offset)) calc(-1*var(--neu-offset)) var(--neu-blur) var(--neu-light),
+    var(--neu-offset)  var(--neu-offset)  var(--neu-blur) var(--neu-dark);
+  transition: transform .18s ease;
+}
+
+/*──────── 5) CONTACT BLOCK ────────*/
+.contact-section h2{
+  margin:0 0 var(--s-sm);
+  text-align: center;
+  font-size: var(--fs-md);
+  color: var(--clr-accent);
+}
+.button-container{
+  display:flex;
+  justify-content:center;
+  gap: var(--s-sm);
+}
+.contact-whatsapp-button,
+.contact-email-button{
+  width:3rem; height:3rem;
+  display:flex; align-items:center; justify-content:center;
+  border:none; border-radius:25%;
+  background: var(--clr-surface-alt);
+  cursor:pointer;
+  box-shadow:
+    inset calc(var(--neu-offset)/4) calc(var(--neu-offset)/4) var(--neu-blur) var(--neu-dark),
+    inset calc(-1*var(--neu-offset)/4) calc(-1*var(--neu-offset)/4) var(--neu-blur) var(--neu-light);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.contact-whatsapp-button:hover,
+.contact-email-button:hover{
+  transform: translateY(-3px);
+  box-shadow:0 0 10px var(--clr-accent),0 0 18px var(--clr-accent-glow);
+}
+.button-icon{ width:1.3rem; height:1.3rem; }
+
+/*──────── 6) FOLLOW-US BLOCK ────────*/
+.follow-us-heading{
+  margin:0 0 var(--s-sm);
+  text-align: center;
+  font-size: var(--fs-md);
+  color: var(--clr-accent);
+}
+.social-icons{
+  display:flex;
+  gap: var(--s-sm);
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.social-icons a img{
+  width:2.5rem; height:2.5rem;
+  padding:var(--s-xs);
+  border-radius:25%;
+  background: var(--clr-surface-alt);
+  box-shadow:
+    inset calc(var(--neu-offset)/5) calc(var(--neu-offset)/5) var(--neu-blur) var(--neu-dark),
+    inset calc(-1*var(--neu-offset)/5) calc(-1*var(--neu-offset)/5) var(--neu-blur) var(--neu-light);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.social-icons a:hover img{
+  transform: translateY(-4px);
+  box-shadow:0 0 8px var(--clr-accent),0 0 16px var(--clr-accent-glow);
+}
+
+/*──────── 7) TYPEWRITER BLOCK ────────*/
+/* Full-row span removes the blank band */
+.typewriter-wrapper{
+  display:flex; align-items:center; justify-content:center;
+  min-height:70px;
+}
+.typewriter-text{ font-family:monospace; white-space:nowrap; font-size:var(--fs-md); }
+.cursor{
+  margin-left:2px;
+  animation: blink .75s steps(1) infinite;
+}
+@media (max-width: 768px) {
+  .typewriter-wrapper {
+    grid-column: 1 / -1;
+  }
+}
+
+@keyframes blink{ 0%,50%{opacity:1} 50.01%,100%{opacity:0} }
+
+/*──────── 8) FOOTER STRIP ────────*/
+.footer{
+  margin-top:var(--s-lg);
+  background: var(--clr-surface);
+  color: #626565;
+  padding: var(--s-md) var(--s-sm);
+  text-align:center;
+  font-size: var(--fs-sm);
+  border-top:1px solid var(--neu-light);
+  box-shadow:
+    0 calc(-1*var(--neu-offset)/2) var(--neu-blur) var(--neu-light),
+    0 var(--neu-offset)/2 var(--neu-blur) var(--neu-dark);
+}
+.footer p{ margin:var(--s-xs) 0; }
+
+.clickable-text{
+  color: var(--clr-accent);
+  cursor:pointer;
+  position:relative;
+  transition: color .2s ease, text-shadow .2s ease;
+}
+.clickable-text:hover{
+  color:#fff;
+  text-shadow:0 0 6px var(--clr-accent),0 0 12px var(--clr-accent-glow);
+}
+.clickable-text::after{
+  content:''; position:absolute; left:0; bottom:-2px;
+  width:100%; height:2px; background:var(--clr-accent);
+  transform:scaleX(0); transform-origin:left;
+  transition: transform .25s ease;
+}
+.clickable-text:hover::after{ transform:scaleX(1); }
+
