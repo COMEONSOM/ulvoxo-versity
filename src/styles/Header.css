@@ -1,152 +1,139 @@
-/* src/styles/Header.css */
+/* ============================================================
+   HEADER STYLES — 2026 READY
+   LOGO + NAME + SLOGAN ALWAYS LEFT ALIGNED
+   SIZE SCALES BASED ON SCREEN SIZE
+   ============================================================ */
 
-/* ───────────────────────────────────────────────
-   Root Variables
-─────────────────────────────────────────────── */
+/* ------------------------------------------------------------
+   GLOBAL VARIABLES
+   ------------------------------------------------------------ */
 :root {
-  --header-bg: #1a202c;
-  --button-hover-bg: #2d3748;
-  --text-color: #ffffff;
-  --secondary-text: #cbd5e0;
+  --color-primary: #1d4ed8;        /* BRAND BLUE */
+  --color-primary-dark: #1e40af;   /* DARKER BLUE (HOVER/FOCUS) */
+  --color-text: #111827;           /* NEUTRAL TEXT COLOR */
+  --color-subtext: #6b7280;        /* MUTED GRAY FOR SLOGAN */
+  --color-bg: #ffffff;             /* HEADER BACKGROUND */
+  --color-border: #e5e7eb;         /* LIGHT BORDER GRAY */
 
-  --profile-border: #ffffff;
-  --profile-dropdown-bg: #ffffff;
-  --profile-text: #000000;
-  --profile-shadow: rgba(0, 0, 0, 0.15);
+  --font-family: "Inter", "Segoe UI", sans-serif;
+  --font-size-lg: 1.25rem;          /* BASE COMPANY NAME SIZE */
+  --font-size-md: 0.8rem;            /* BASE SLOGAN SIZE */
+  --font-size-sm: 0.65rem;        /* SMALL DEVICES */
 
-  --logout-btn-bg: #d9534f;
-  --logout-btn-hover: #c9302c;
+  --spacing-xs: 0.3rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 0.8rem;
+  --spacing-lg: 1rem;
 
-  --border-radius-sm: 5px;
-  --border-radius-md: 8px;
-  --spacing-sm: 10px;
-  --spacing-md: 30px;
-  --spacing-lg: 50px;
-
-  --font-size-lg: 1.4rem;
-  --font-size-md: 1rem;
-  --font-size-sm: 0.9rem;
-
-  --transition-speed: 0.2s ease;
+  --logo-size-mobile: 75px;
+  --logo-size-tablet: 85px;
+  --logo-size-desktop: 88px;
 }
 
-/* ───────────────────────────────────────────────
-   Header Container
-─────────────────────────────────────────────── */
+/* ============================================================
+   HEADER CONTAINER
+   LEFT-ALIGNED FOR ALL SCREENS
+   ============================================================ */
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start; /* ALWAYS LEFT */
   align-items: center;
-  padding: var(--spacing-sm) var(--spacing-md);
-  background-color: var(--header-bg);
-  color: var(--text-color);
-  flex-wrap: wrap;
+  padding: var(--spacing-md) var(--spacing-lg);
+  margin: 10px 0;
+  background-color: var(--color-bg);
+  font-family: var(--font-family);
+  position: relative;
+  z-index: 1000;
 }
 
-/* ───────────────────────────────────────────────
-   Company Info Section
-─────────────────────────────────────────────── */
+/* ============================================================
+   COMPANY INFO SECTION (LOGO + NAME + SLOGAN)
+   ALWAYS LEFT CORNER
+   ============================================================ */
 .company-info {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: var(--spacing-xs); /* SPACE BETWEEN LOGO & TEXT */
 }
 
+/* COMPANY LOGO */
 .company-logo {
-  width: 60px;
+  width: 90px;
   height: auto;
-  margin: var(--spacing-sm);
-  border-radius: 50%;
+  object-fit: contain;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
 }
 
-.CompanyName {
-  font-size: var(--font-size-lg);
-  font-weight: bold;
-}
-
-.CompanySlogan {
-  font-size: var(--font-size-sm);
-  color: var(--secondary-text);
-}
-
-/* ───────────────────────────────────────────────
-   Navigation Buttons
-─────────────────────────────────────────────── */
-.nav-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.nav-button {
-  background: none;
-  color: var(--text-color);
-  border: none;
-  padding: 8px 16px;
-  font-size: var(--font-size-md);
-  cursor: pointer;
-  transition: background-color var(--transition-speed);
-}
-
-.nav-button:hover {
-  background-color: var(--button-hover-bg);
-  border-radius: var(--border-radius-sm);
-}
-
-/* ───────────────────────────────────────────────
-   Profile Image & Dropdown
-─────────────────────────────────────────────── */
-.profile-container {
-  position: relative;
-  display: inline-block;
-}
-
-.profile-image {
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid var(--profile-border);
-  cursor: pointer;
-  transition: transform var(--transition-speed);
-}
-
-.profile-image:hover {
+.company-logo:hover {
   transform: scale(1.05);
 }
 
-.profile-dropdown {
-  position: absolute;
-  top: 50px;
-  right: 0;
-  background-color: var(--profile-dropdown-bg);
-  color: var(--profile-text);
-  padding: var(--spacing-sm);
-  border-radius: var(--border-radius-md);
-  box-shadow: 0px 4px 10px var(--profile-shadow);
-  z-index: 10;
-  min-width: 200px;
-  text-align: left;
+/* COMPANY NAME */
+.CompanyName {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 0.5px;
+  line-height: 1.2;
 }
 
-.profile-dropdown p {
-  margin: 5px 0;
+/* COMPANY SLOGAN */
+.CompanySlogan {
+  font-size: var(--font-size-md);
+  font-weight: 400;
+  color: var(--color-subtext);
+  line-height: 1.2;
 }
 
-/* ───────────────────────────────────────────────
-   Logout Button
-─────────────────────────────────────────────── */
-.logout-btn {
-  margin-top: var(--spacing-sm);
-  padding: 6px 12px;
-  background-color: var(--logout-btn-bg);
-  color: var(--text-color);
-  border: none;
-  border-radius: var(--border-radius-sm);
-  cursor: pointer;
-  width: 100%;
-  transition: background-color var(--transition-speed);
+/* ============================================================
+   RESPONSIVE DESIGN — SCALE LOGO & TEXT
+   ============================================================ */
+
+/* SMALL SCREENS (MOBILE) */
+@media (max-width: 640px) {
+  .company-logo {
+    width: var(--logo-size-mobile);
+    height: var(--logo-size-mobile);
+  }
+
+  .CompanyName {
+    font-size: 1.25rem; /* SLIGHTLY SMALLER ON MOBILE */
+  }
+
+  .CompanySlogan {
+    font-size: var(--font-size-sm);
+  }
 }
 
-.logout-btn:hover {
-  background-color: var(--logout-btn-hover);
+/* MEDIUM SCREENS (TABLETS) */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .company-logo {
+    width: var(--logo-size-tablet);
+    height: var(--logo-size-tablet);
+  }
+
+  .CompanyName {
+    font-size: 1.375rem;
+  }
+
+  .CompanySlogan {
+    font-size: 1rem;
+  }
+}
+
+/* LARGE SCREENS (DESKTOP) */
+@media (min-width: 1025px) {
+  .company-logo {
+    width: var(--logo-size-desktop);
+    height: var(--logo-size-desktop);
+  }
+
+  .CompanyName {
+    font-size: 1.5rem; /* SLIGHTLY BIGGER FOR LARGE DISPLAYS */
+  }
+
+  .CompanySlogan {
+    font-size: 1.125rem;
+  }
 }

@@ -1,0 +1,111 @@
+/* ============================================================
+   STUDY MATERIAL STYLES — 2026 READY
+   ROUND BUTTONS + LOTTIE ANIMATIONS
+   FULLY RESPONSIVE & CLEAN
+   ============================================================ */
+
+:root {
+  --study-bg: #f8fafc;          /* LIGHT BACKGROUND */
+  --study-card-bg: #ffffff;     /* CARD BACKGROUND */
+  --study-text: #1a202c;        /* DARK TEXT */
+  --study-hover: #2563eb;       /* HOVER BLUE */
+  --study-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+
+  --border-radius-round: 50%;
+  --border-radius-lg: 16px;
+
+  --font-size-md: 1rem;
+  --font-size-lg: 1.2rem;
+
+  --spacing-md: 12px;
+  --spacing-lg: 20px;
+  --spacing-xl: 32px;
+}
+
+/* ───────────────────────────────────────────────
+   SECTION CONTAINER
+─────────────────────────────────────────────── */
+.study-material {
+  background: var(--study-bg);
+  padding: var(--spacing-xl);
+  text-align: center;
+}
+
+.study-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: var(--spacing-md);
+  color: var(--study-text);
+}
+
+.study-subtitle {
+  font-size: var(--font-size-md);
+  color: #4a5568;
+  margin-bottom: var(--spacing-xl);
+}
+
+/* ───────────────────────────────────────────────
+   GRID LAYOUT
+─────────────────────────────────────────────── */
+.study-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-xl);
+  justify-items: center;
+}
+
+/* ───────────────────────────────────────────────
+   ROUND BUTTONS (CARDS)
+─────────────────────────────────────────────── */
+.study-card {
+  background: var(--study-card-bg);
+  border-radius: var(--border-radius-round);
+  width: 160px;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--study-shadow);
+  cursor: pointer;
+  border: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+}
+
+.study-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.study-animation {
+  width: 80px;
+  height: 80px;
+  margin-bottom: var(--spacing-md);
+}
+
+.study-label {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--study-text);
+  pointer-events: none;
+}
+
+/* ───────────────────────────────────────────────
+   RESPONSIVE
+─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .study-card {
+    width: 120px;
+    height: 120px;
+  }
+
+  .study-animation {
+    width: 60px;
+    height: 60px;
+  }
+
+  .study-label {
+    font-size: var(--font-size-md);
+  }
+}

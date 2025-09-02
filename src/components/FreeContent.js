@@ -13,7 +13,7 @@ const FreeContent = () => {
   ];
 
   return (
-    <div className="free-content-container">
+    <div id="free-content" className="free-content-container">
       <h2>Free Contents</h2>
       <div className="video-list">
         {videos.map((video, index) => (

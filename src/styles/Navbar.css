@@ -1,249 +1,111 @@
-/* src/styles/Navbar.css */
+/* ============================================================
+   NAVBAR STYLES — 2026 READY
+   CLEAN, RESPONSIVE, AND PERFORMANCE-OPTIMIZED
+   MATCHES LATEST NAVBAR.JSX (NO DROPDOWNS)
+   ============================================================ */
 
 /* ───────────────────────────────────────────────
-   Root Variables
+   Root Variables — SCALABLE & THEMEABLE
 ─────────────────────────────────────────────── */
 :root {
-  --navbar-bg: #1a202c;
-  --navbar-text: #ffffff;
-  --hover-underline: #0047b3;
-
-  --dropdown-bg: #416c97;
-  --dropdown-hover-bg: rgba(0, 0, 0, 0.1);
-  --info-bg: #000000;
-  --info-text: #e6e6e6;
-
-  --border-radius-sm: 5px;
-  --border-radius-md: 10px;
+  --navbar-bg: #1a202c;          /* DARK SLATE BACKGROUND */
+  --navbar-text: #ffffff;        /* PURE WHITE TEXT */
+  --navbar-hover: #2563eb;       /* BRIGHT BLUE HOVER */
+  --navbar-active: #0047b3;      /* ACTIVE STATE */
 
   --font-size-sm: 0.85rem;
-  --font-size-md: 0.95rem;
-  --font-size-lg: 1rem;
-  --font-size-xl: 1.5rem;
-  --font-size-xxl: 2rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.1rem;
 
-  --spacing-xs: 6px;
   --spacing-sm: 8px;
-  --spacing-md: 10px;
-  --spacing-lg: 12px;
-  --spacing-xl: 15px;
-  --spacing-2xl: 20px;
-  --spacing-3xl: 30px;
-  --spacing-4xl: 40px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
 
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.25);
+  --border-radius: 8px;
+
+  --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 /* ───────────────────────────────────────────────
    Navbar Container
 ─────────────────────────────────────────────── */
 .navbar {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: var(--spacing-2xl);
+  width: 100%;
   background: var(--navbar-bg);
-  transition: padding 0.3s ease;
-  position: relative;
+  padding: var(--spacing-md) var(--spacing-xl);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;     /* STAYS ON TOP WHEN SCROLLING */
+  top: 0;
+  z-index: 999;
+  box-shadow: var(--shadow-md);
 }
 
 /* ───────────────────────────────────────────────
-   Navbar Buttons & Links
+   Navigation Buttons
 ─────────────────────────────────────────────── */
-.navbar button,
-.navbar a {
-  color: var(--navbar-text);
-  background: transparent;
-  border: 2px solid transparent;
-  border-radius: var(--border-radius-sm);
-  font-size: var(--font-size-lg);
-  cursor: pointer;
-  padding: var(--spacing-md) var(--spacing-xl);
-  position: relative;
-  overflow: hidden;
-  text-decoration: none;
-  transition: color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+.nav-buttons {
+  display: flex;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap; /* ALLOWS WRAP ON SMALLER DEVICES */
 }
 
-.navbar button::after,
-.navbar a::after {
-  content: '';
+.nav-button {
+  background: transparent;
+  color: var(--navbar-text);
+  border: none;
+  font-size: var(--font-size-md);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+/* UNDERLINE EFFECT */
+.nav-button::after {
+  content: "";
   position: absolute;
-  bottom: 0;
   left: 0;
+  bottom: 4px;
   height: 2px;
   width: 100%;
-  background-color: var(--hover-underline);
+  background: var(--navbar-hover);
   transform: scaleX(0);
   transform-origin: bottom right;
   transition: transform 0.3s ease;
 }
 
-.navbar button:hover::after,
-.navbar a:hover::after {
+/* HOVER + ACTIVE STATES */
+.nav-button:hover {
+  color: var(--navbar-hover);
+  transform: translateY(-2px);
+}
+
+.nav-button:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
 
-/* ───────────────────────────────────────────────
-   Dropdown Menus
-─────────────────────────────────────────────── */
-.services-dropdown,
-.menu-dropdown {
-  position: absolute;
-  top: 100%;
-  left: var(--spacing-md);
-  background-color: var(--dropdown-bg);
-  border-radius: var(--border-radius-sm);
-  padding: var(--spacing-md) 0;
-  margin: var(--spacing-md) 0;
-  box-shadow: var(--shadow-sm);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  min-width: 180px;
-  animation: slideDown 0.2s ease forwards;
-}
-
-.dropdown-option {
-  background: none;
-  color: var(--navbar-text);
-  border: none;
-  padding: var(--spacing-md) var(--spacing-2xl);
-  text-align: left;
-  font-size: var(--font-size-md);
-  cursor: pointer;
-  text-decoration: none;
-  transition: background 0.3s ease;
-}
-
-.dropdown-option:hover {
-  background-color: var(--dropdown-hover-bg);
-}
-
-/* ───────────────────────────────────────────────
-   Info Section
-─────────────────────────────────────────────── */
-.info-section {
-  margin-top: var(--spacing-2xl);
-  padding: var(--spacing-lg);
-  background-color: var(--info-bg);
-  color: var(--info-text);
-  border-radius: var(--border-radius-md);
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.info-section:hover {
-  transform: scale(1.02);
-  box-shadow: var(--shadow-md);
-}
-
-/* ───────────────────────────────────────────────
-   Slide Down Animation
-─────────────────────────────────────────────── */
-@keyframes slideDown {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+.nav-button:active {
+  color: var(--navbar-active);
+  transform: translateY(0);
 }
 
 /* ───────────────────────────────────────────────
    Responsive Layout
 ─────────────────────────────────────────────── */
 
-/* Tablets and Medium Screens */
+/* Tablets */
 @media (max-width: 1024px) {
-  .navbar {
-    grid-template-columns: auto 1fr;
-    padding: var(--spacing-md) var(--spacing-2xl);
-    gap: var(--spacing-xl);
-  }
-
-  .navbar ul {
+  .nav-buttons {
     gap: var(--spacing-md);
   }
-
-  .logo {
-    max-height: 50px;
-  }
-
-  .navbar-info h1 {
-    font-size: var(--font-size-xl);
-  }
-
-  .navbar button,
-  .navbar a {
-    font-size: var(--font-size-md);
-    padding: var(--spacing-sm) var(--spacing-lg);
-  }
-
-  .services-dropdown,
-  .menu-dropdown {
-    left: auto;
-    right: var(--spacing-md);
-  }
-}
-
-/* Mobile and Smaller Screens */
-@media (max-width: 768px) {
-  .navbar {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    padding: var(--spacing-sm) var(--spacing-xl);
-    gap: var(--spacing-md);
-  }
-
-  .navbar ul {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-md);
-  }
-
-  .navbar-info h1 {
-    font-size: 1.2rem;
-  }
-
-  .navbar button,
-  .navbar a {
+  .nav-button {
     font-size: var(--font-size-sm);
-    padding: var(--spacing-xs) var(--spacing-md);
-  }
-
-  .logo {
-    max-height: 45px;
-  }
-
-  .services-dropdown,
-  .menu-dropdown {
-    min-width: 150px;
-    right: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
   }
 }
 
-/* Very Large Screens */
-@media (min-width: 1400px) {
-  .navbar {
-    padding: var(--spacing-xl) var(--spacing-4xl);
-    gap: var(--spacing-3xl);
-  }
-
-  .navbar-info h1 {
-    font-size: var(--font-size-xxl);
-  }
-
-  .navbar button,
-  .navbar a {
-    font-size: 1.1rem;
-    padding: var(--spacing-lg) var(--spacing-xl);
-  }
-
-  .logo {
-    max-height: 70px;
-  }
-}

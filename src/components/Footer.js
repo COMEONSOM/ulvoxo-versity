@@ -13,7 +13,7 @@ import TwitterLogo   from '../assets/twitter-logo.png';
 // ---------- constants ----------
 const FOUNDER_DETAILS_URL = 'https://www.xfactorial.online/Other-files/founder.html';
 const TERMS_PAGE_URL      = 'https://www.xfactorial.online/Other-files/terms.html';
-const TYPEWRITER_TEXT     = 'X!DI LEARN THE NEW WAY!';
+const TYPEWRITER_TEXT     = 'REDEFINE LEARNING. BREAK THE TRADITIONAL.';
 
 // ---------- motion variants ----------
 const fadeSlide = {
@@ -158,7 +158,7 @@ const Footer = () => {
 
       {/* ---- Footer strip ---- */}
       <footer className="footer">
-        <p>© {new Date().getFullYear()} X! DIGITAL INSTITUTE. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} ULVOXO VERSITY. All rights reserved.</p>
         <p>
           <motion.span
             className="clickable-text"
