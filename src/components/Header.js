@@ -3,6 +3,7 @@
 // CLEAN, RESPONSIVE, AND PERFORMANCE-OPTIMIZED
 // NO LOGIN/LOGOUT LOGIC — PURELY UI
 // ============================================================
+// manforceutube@gmail.com -- firebase project owner email --
 
 import "../styles/Header.css"; // HEADER-SPECIFIC STYLES
 import logo from "../assets/logo.png"; // COMPANY LOGO

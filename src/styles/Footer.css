@@ -3,8 +3,8 @@
 /*──────── 1) DESIGN TOKENS ────────*/
 :root {
   /* Palette */
-  --clr-bg:           #080808;
-  --clr-surface:      #1e2131;
+  --clr-bg:           #1a202c;
+  --clr-surface:      #1a202c;
   --clr-surface-alt:  #202336;
   --clr-text:         #e5e8ff;
   --clr-accent:       #5f6dff;
@@ -54,9 +54,6 @@
   background: var(--clr-surface);
   border-radius: var(--r);
   padding: var(--s-md);
-  box-shadow:
-    calc(-1*var(--neu-offset)) calc(-1*var(--neu-offset)) var(--neu-blur) var(--neu-light),
-    var(--neu-offset)  var(--neu-offset)  var(--neu-blur) var(--neu-dark);
   transition: transform .18s ease;
 }
 

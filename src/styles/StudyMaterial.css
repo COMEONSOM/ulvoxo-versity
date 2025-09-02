@@ -1,17 +1,16 @@
 /* ============================================================
    STUDY MATERIAL STYLES — 2026 READY
-   ROUND BUTTONS + LOTTIE ANIMATIONS
-   FULLY RESPONSIVE & CLEAN
+   RECTANGULAR CARDS + LOTTIE ANIMATIONS
+   RESPONSIVE + VIEW MORE CARD
    ============================================================ */
 
 :root {
-  --study-bg: #f8fafc;          /* LIGHT BACKGROUND */
-  --study-card-bg: #ffffff;     /* CARD BACKGROUND */
-  --study-text: #1a202c;        /* DARK TEXT */
-  --study-hover: #2563eb;       /* HOVER BLUE */
+  --study-bg: #f8fafc;
+  --study-card-bg: #ffffff;
+  --study-text: #1a202c;
+  --study-hover: #2563eb;
   --study-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 
-  --border-radius-round: 50%;
   --border-radius-lg: 16px;
 
   --font-size-md: 1rem;
@@ -34,14 +33,8 @@
 .study-title {
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: var(--spacing-md);
-  color: var(--study-text);
-}
-
-.study-subtitle {
-  font-size: var(--font-size-md);
-  color: #4a5568;
   margin-bottom: var(--spacing-xl);
+  color: var(--study-text);
 }
 
 /* ───────────────────────────────────────────────
@@ -49,18 +42,22 @@
 ─────────────────────────────────────────────── */
 .study-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: var(--spacing-xl);
-  justify-items: center;
+
+  /* React controls column count (via inline style) */
+  justify-content: center;   /* centers the entire grid */
+  justify-items: center;     /* centers each card inside its grid cell */
+  align-items: start;        /* keeps row alignment consistent */
 }
 
 /* ───────────────────────────────────────────────
-   ROUND BUTTONS (CARDS)
+   CARDS
 ─────────────────────────────────────────────── */
 .study-card {
   background: var(--study-card-bg);
-  border-radius: var(--border-radius-round);
-  width: 160px;
+  border-radius: var(--border-radius-lg);
+  width: 100%;
+  max-width: 220px;   /* keeps consistent card width */
   height: 160px;
   display: flex;
   flex-direction: column;
@@ -81,7 +78,7 @@
 .study-animation {
   width: 80px;
   height: 80px;
-  margin-bottom: var(--spacing-md);
+  margin-bottom: 20px;
 }
 
 .study-label {
@@ -92,17 +89,71 @@
 }
 
 /* ───────────────────────────────────────────────
+   VIEW MORE CARD (SPECIAL STYLE)
+─────────────────────────────────────────────── */
+#view-more-card {
+  background: var(--study-hover);
+  color: white;
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  max-width: 220px;   /* match normal card width */
+}
+
+#view-more-card:hover {
+  background: #1e40af;
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+#view-more-card .study-label {
+  color: white;
+  margin: 0;
+}
+
+/* ───────────────────────────────────────────────
    RESPONSIVE
 ─────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .study-card {
-    width: 120px;
-    height: 120px;
+    height: 160px;
   }
 
   .study-animation {
-    width: 60px;
-    height: 60px;
+    width: 120px;
+    height: 90px;
+  }
+
+  .study-label {
+    font-size: var(--font-size-md);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .study-card {
+    height: 180px;
+  }
+
+  .study-animation {
+    width: 150px;
+    height: 120px;
+  }
+
+  .study-label {
+    font-size: var(--font-size-md);
+  }
+}
+
+@media (min-width: 1025px) {
+  .study-card {
+    height: 200px;
+  }
+
+  .study-animation {
+    width: 170px;
+    height: 140px;
   }
 
   .study-label {

@@ -1,114 +1,144 @@
-/* src/styles/AvailableCourses.css */
+/* ============================================================
+   AVAILABLE COURSES STYLES — 2026 READY
+   SCALABLE, RESPONSIVE, ROBUST, CLEAN CODE
+   ============================================================ */
 
 /* ───────────────────────────────────────────────
-   Root Theme Variables
+   Root Theme Variables → EASY CUSTOMIZATION
 ─────────────────────────────────────────────── */
 :root {
   /* Backgrounds & Shadows */
-  --bg-color: #ffffff;
+  --bg-color: #f8fafc;
   --light-shadow: #ffffff;
-  --dark-shadow: #9a9a9a;
-  --inset-shadow: #651cdb;
+  --dark-shadow: rgba(0, 0, 0, 0.15);
+  --inset-shadow: rgba(28, 79, 219, 0.5);
 
   /* Text Colors */
-  --primary-text: #000000;
-  --accent-color: #000000;
+  --primary-text: #1a1a1a;
+  --secondary-text: #444444;
+  --accent-color: #1d4ed8;
   --button-text: #ffffff;
 
   /* Button Colors */
-  --button-bg: #064dff;
-  --course-bg: #7643f7;
+  --button-bg: #2563eb;
+  --course-bg: #ffffff;
 
   /* Borders & Radius */
   --border-radius: 20px;
-  --border-radius-sm: 10px;
+  --border-radius-sm: 12px;
 
   /* Spacing */
-  --space-xs: 10px;
-  --space-sm: 20px;
-  --space-md: 25px;
-  --space-lg: 30px;
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
 
   /* Font */
-  --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-main: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 
   /* Transitions */
   --transition-speed: 0.3s;
+
+  /* Responsive Breakpoints */
+  --mobile: 480px;
+  --tablet: 768px;
+  --laptop: 1024px;
 }
 
 /* ───────────────────────────────────────────────
    Base Container
 ─────────────────────────────────────────────── */
 .courses-container {
-  background: #ffffff;
-  margin: 2rem;
-  border-radius: 10px;
+  background: var(--bg-color);
+  margin: var(--space-lg) auto;
+  border-radius: var(--border-radius);
   color: var(--primary-text);
   font-family: var(--font-main);
-  padding: var(--space-xs);
-  min-height: 50vh;
+  height: auto;
+  width: 80% ;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.courses-container h2 {
+  font-size: 2rem;
+  margin-bottom: var(--space-md);
+  text-align: center;
+  font-weight: 700;
+  color: var(--accent-color);
 }
 
 /* ───────────────────────────────────────────────
    Course List Section
 ─────────────────────────────────────────────── */
 .course-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: var(--space-lg);
+  width: 100%;
   padding: 0;
   list-style: none;
 }
 
 .course-item {
   background: var(--course-bg);
-  color: var(--button-text);
-  padding: var(--space-sm);
+  color: var(--primary-text);
+  padding: var(--space-md) var(--space-sm);
   text-align: center;
-  border-radius: 0.5rem;
-  width: 200px;
-  cursor: pointer;
-  box-shadow: 8px 8px 15px var(--dark-shadow),
-              -8px -8px 15px var(--light-shadow);
-  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
-}
-
-.course-item:hover {
-  transform: translateY(-5px);
-  box-shadow: inset 4px 4px 8px var(--inset-shadow),
-              inset -4px -4px 8px var(--inset-shadow);
-}
-
-.course-thumbnail {
-  width: 100%;
-  height: auto;
-  margin-bottom: var(--space-xs);
   border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  box-shadow: 6px 6px 12px var(--dark-shadow),
+              -6px -6px 12px var(--light-shadow);
+  transition: transform var(--transition-speed),
+              box-shadow var(--transition-speed);
+
+  /* NEW → FLEX LAYOUT FOR CENTERING */
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* HORIZONTAL CENTER */
+  justify-content: center; /* VERTICAL CENTER (extra polish) */
+}
+.course-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+/* Ensure the thumbnail/animation is always centered */
+.course-thumbnail {
+  width: 60%;
+  height: auto;
+  margin-bottom: var(--space-sm);
+
+  /* REMOVE unnecessary alignments, flex handles it */
+  display: block;
 }
 
 /* ───────────────────────────────────────────────
-   Course Details
+   Course Details Section
 ─────────────────────────────────────────────── */
 .course-details {
-  background: var(--bg-color);
+  background: var(--course-bg);
   color: var(--primary-text);
-  padding: var(--space-md);
-  margin-top: var(--space-sm);
-  font-weight: bold;
+  padding: var(--space-lg);
+  margin-top: var(--space-md);
   border-radius: var(--border-radius);
-  width: 80%;
-  max-width: 600px;
-  height: auto;
-  box-shadow: 8px 8px 15px var(--dark-shadow),
-              -8px -8px 15px var(--light-shadow);
+  width: 100%;
+  max-width: 720px;
+  box-shadow: 6px 6px 14px var(--dark-shadow),
+              -6px -6px 14px var(--light-shadow);
+  line-height: 1.5;
+}
+
+.course-details h3 {
+  margin-bottom: var(--space-sm);
+  color: var(--accent-color);
 }
 
 .course-details p {
-  margin: 4px 0;
+  margin: 6px 0;
+  font-size: 0.95rem;
+  color: var(--secondary-text);
 }
 
 /* ───────────────────────────────────────────────
@@ -117,17 +147,19 @@
 .back-button {
   background: var(--bg-color);
   border: none;
-  border-radius: 0.5rem;
-  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-sm);
+  padding: var(--space-xs) var(--space-md);
   margin-bottom: var(--space-sm);
   cursor: pointer;
-  box-shadow: 6px 6px 12px var(--dark-shadow);
-  transition: box-shadow var(--transition-speed);
+  font-weight: 600;
+  box-shadow: 4px 4px 10px var(--dark-shadow);
+  transition: all var(--transition-speed);
 }
 
 .back-button:hover {
-  box-shadow: inset 4px 4px 8px var(--dark-shadow),
-              inset -4px -4px 8px var(--light-shadow);
+  background: var(--accent-color);
+  color: var(--button-text);
+  box-shadow: 0 4px 12px var(--accent-color);
 }
 
 /* ───────────────────────────────────────────────
@@ -136,58 +168,108 @@
 .price-and-pay {
   display: flex;
   justify-content: space-between;
-  margin: var(--space-sm) 0;
-  gap: var(--space-sm);
+  align-items: center;
+  margin-top: var(--space-md);
+  gap: var(--space-md);
+  flex-wrap: wrap;
 }
 
 .price {
   background: var(--accent-color);
   color: var(--button-text);
-  font-size: larger;
+  font-size: 1rem;
   font-weight: bold;
-  padding: var(--space-xs) var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
   border: none;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-sm);
 }
 
 .pay-button {
   background: var(--button-bg);
   color: var(--button-text);
   border: none;
-  padding: var(--space-sm);
-  border-radius: 10%;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--border-radius-sm);
   font-weight: bold;
   cursor: pointer;
-  margin-bottom: var(--space-xs);
-  box-shadow: 6px 6px 12px var(--dark-shadow),
-              -6px -6px 12px var(--light-shadow);
-  transition: box-shadow var(--transition-speed);
+  box-shadow: 4px 4px 10px var(--dark-shadow),
+              -4px -4px 10px var(--light-shadow);
+  transition: all var(--transition-speed);
 }
 
 .pay-button:hover {
-  box-shadow: inset 4px 4px 8px #4f504f,
-              inset -4px -4px 8px var(--button-bg);
+  background: #1d4ed8;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
 }
 
 /* ───────────────────────────────────────────────
    QR Code Section
 ─────────────────────────────────────────────── */
 .qr-section {
-  background: var(--bg-color);
-  padding: var(--space-md);
-  margin-top: var(--space-sm);
+  background: var(--course-bg);
+  padding: var(--space-lg);
+  margin-top: var(--space-md);
   border-radius: var(--border-radius);
-  width: 90%;
+  width: 100%;
   max-width: 600px;
-  box-shadow: 8px 8px 15px var(--dark-shadow),
-              -8px -8px 15px var(--light-shadow);
+  box-shadow: 6px 6px 14px var(--dark-shadow),
+              -6px -6px 14px var(--light-shadow);
+  text-align: center;
 }
 
 .qr-section img {
-  width: 200px;
-  margin: var(--space-xs) auto 0 auto;
+  width: 220px;
+  margin: var(--space-md) auto;
   display: block;
   border-radius: var(--border-radius-sm);
   box-shadow: 4px 4px 10px var(--dark-shadow),
               -4px -4px 10px var(--light-shadow);
+}
+
+.qr-section h3 {
+  color: var(--accent-color);
+}
+
+.qr-section p {
+  font-size: 0.95rem;
+  color: var(--secondary-text);
+  margin-top: var(--space-xs);
+}
+
+/* ───────────────────────────────────────────────
+   Responsive Adjustments
+─────────────────────────────────────────────── */
+@media (max-width: var(--tablet)) {
+  .courses-container {
+    padding: var(--space-sm);
+  }
+
+  .course-list {
+    gap: var(--space-md);
+  }
+
+  .course-item {
+    width: 100%;
+  }
+
+  .price-and-pay {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: var(--mobile)) {
+  .courses-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .course-details,
+  .qr-section {
+    padding: var(--space-md);
+  }
+
+  .qr-section img {
+    width: 180px;
+  }
 }

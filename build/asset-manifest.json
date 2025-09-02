@@ -1,9 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.cd140045.css",
-    "main.js": "/static/js/main.8caf2a7e.js",
+    "main.css": "/static/css/main.2007cc9d.css",
+    "main.js": "/static/js/main.b1796845.js",
     "static/media/instagram-logo.png": "/static/media/instagram-logo.db2612bd586501d9ed3e.png",
     "static/media/banner2.png": "/static/media/banner2.bc447a85a91a5386b726.png",
+    "static/media/logo.png": "/static/media/logo.1b5e52f4291db27ee1f2.png",
     "static/media/fa-solid-900.ttf": "/static/media/fa-solid-900.2582b0e4bcf85eceead0.ttf",
     "static/media/banner1.png": "/static/media/banner1.505542de6975a623faea.png",
     "static/media/FinanceQR.png": "/static/media/FinanceQR.867814793e41131a99f9.png",
@@ -17,16 +18,15 @@
     "static/media/fa-regular-400.ttf": "/static/media/fa-regular-400.914997e1bdfc990d0897.ttf",
     "static/media/whatsapp-logo.png": "/static/media/whatsapp-logo.31d4b1d27126bcc1f665.png",
     "static/media/facebook-logo.png": "/static/media/facebook-logo.790642551cd99bb66a7e.png",
-    "static/media/logo.webp": "/static/media/logo.76760b248cb00029ce7e.webp",
     "static/media/fa-regular-400.woff2": "/static/media/fa-regular-400.89999bdf5d835c012025.woff2",
     "static/media/fa-v4compatibility.ttf": "/static/media/fa-v4compatibility.da94ef451f4969af06e6.ttf",
     "static/media/fa-v4compatibility.woff2": "/static/media/fa-v4compatibility.ea8f94e1d22e0d35ccd4.woff2",
     "index.html": "/index.html",
-    "main.cd140045.css.map": "/static/css/main.cd140045.css.map",
-    "main.8caf2a7e.js.map": "/static/js/main.8caf2a7e.js.map"
+    "main.2007cc9d.css.map": "/static/css/main.2007cc9d.css.map",
+    "main.b1796845.js.map": "/static/js/main.b1796845.js.map"
   },
   "entrypoints": [
-    "static/css/main.cd140045.css",
-    "static/js/main.8caf2a7e.js"
+    "static/css/main.2007cc9d.css",
+    "static/js/main.b1796845.js"
   ]
 }
