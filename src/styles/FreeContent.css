@@ -70,7 +70,16 @@ body {
     position: relative;
     overflow: hidden;
 }
-
+.free-content-container h2 {
+  font-size: 2rem;                  /* Big enough for section title */
+  font-weight: 700;                 /* Bold and clear */
+  text-align: center;               /* Centered */
+  color: #1d4ed8;                   /* Neutral dark gray */
+  margin-bottom: 2rem;              /* Space below header */
+  position: relative;               /* For pseudo-element underline */
+  letter-spacing: 0.5px;            /* Slight spacing for clarity */
+  line-height: 1.3;                 /* Balanced height */
+}
 /* ───────────────────────────────────────
    Video Grid
 ─────────────────────────────────────── */

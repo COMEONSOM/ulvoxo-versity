@@ -8,9 +8,9 @@
    Root Variables — SCALABLE & THEMEABLE
 ─────────────────────────────────────────────── */
 :root {
-  --navbar-bg: #1a202c;          /* DARK SLATE BACKGROUND */
+  --navbar-bg: #305295;          /* DARK SLATE BACKGROUND */
   --navbar-text: #ffffff;        /* PURE WHITE TEXT */
-  --navbar-hover: #2563eb;       /* BRIGHT BLUE HOVER */
+  --navbar-hover: #061128;       /* BRIGHT BLUE HOVER */
   --navbar-active: #0047b3;      /* ACTIVE STATE */
 
   --font-size-sm: 0.85rem;
@@ -108,4 +108,5 @@
     padding: var(--spacing-sm) var(--spacing-md);
   }
 }
+
 

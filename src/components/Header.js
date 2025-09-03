@@ -16,10 +16,6 @@ function Header() {
          ====================================================== */}
       <div className="company-info">
         <img src={logo} alt="Company Logo" className="company-logo" />
-        <div>
-          <div className="CompanyName">ULVOXO VERSITY</div>
-          <div className="CompanySlogan">BEYOND POSSIBILITIES</div>
-        </div>
       </div>
     </header>
   );

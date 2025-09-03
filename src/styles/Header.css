@@ -15,19 +15,16 @@
   --color-bg: #ffffff;             /* HEADER BACKGROUND */
   --color-border: #e5e7eb;         /* LIGHT BORDER GRAY */
 
-  --font-family: "Inter", "Segoe UI", sans-serif;
-  --font-size-lg: 1.25rem;          /* BASE COMPANY NAME SIZE */
-  --font-size-md: 0.8rem;            /* BASE SLOGAN SIZE */
-  --font-size-sm: 0.65rem;        /* SMALL DEVICES */
+  --font-family: "Inter", "Segoe UI", sans-serif;       /* SMALL DEVICES */
 
   --spacing-xs: 0.3rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 0.8rem;
   --spacing-lg: 1rem;
 
-  --logo-size-mobile: 75px;
-  --logo-size-tablet: 85px;
-  --logo-size-desktop: 88px;
+  --logo-size-mobile: 160px;
+  --logo-size-tablet: 180px;
+  --logo-size-desktop: 220px;
 }
 
 /* ============================================================
@@ -43,7 +40,7 @@
   background-color: var(--color-bg);
   font-family: var(--font-family);
   position: relative;
-  z-index: 1000;
+  z-index: 100;
 }
 
 /* ============================================================
@@ -65,27 +62,6 @@
   transition: transform 0.3s ease;
 }
 
-.company-logo:hover {
-  transform: scale(1.05);
-}
-
-/* COMPANY NAME */
-.CompanyName {
-  font-size: var(--font-size-lg);
-  font-weight: 700;
-  color: var(--color-primary);
-  letter-spacing: 0.5px;
-  line-height: 1.2;
-}
-
-/* COMPANY SLOGAN */
-.CompanySlogan {
-  font-size: var(--font-size-md);
-  font-weight: 400;
-  color: var(--color-subtext);
-  line-height: 1.2;
-}
-
 /* ============================================================
    RESPONSIVE DESIGN — SCALE LOGO & TEXT
    ============================================================ */
@@ -94,15 +70,7 @@
 @media (max-width: 640px) {
   .company-logo {
     width: var(--logo-size-mobile);
-    height: var(--logo-size-mobile);
-  }
-
-  .CompanyName {
-    font-size: 1.25rem; /* SLIGHTLY SMALLER ON MOBILE */
-  }
-
-  .CompanySlogan {
-    font-size: var(--font-size-sm);
+    height: auto;
   }
 }
 
@@ -110,15 +78,7 @@
 @media (min-width: 641px) and (max-width: 1024px) {
   .company-logo {
     width: var(--logo-size-tablet);
-    height: var(--logo-size-tablet);
-  }
-
-  .CompanyName {
-    font-size: 1.375rem;
-  }
-
-  .CompanySlogan {
-    font-size: 1rem;
+    height: auto;
   }
 }
 
@@ -126,14 +86,6 @@
 @media (min-width: 1025px) {
   .company-logo {
     width: var(--logo-size-desktop);
-    height: var(--logo-size-desktop);
-  }
-
-  .CompanyName {
-    font-size: 1.5rem; /* SLIGHTLY BIGGER FOR LARGE DISPLAYS */
-  }
-
-  .CompanySlogan {
-    font-size: 1.125rem;
+    height: auto;
   }
 }
