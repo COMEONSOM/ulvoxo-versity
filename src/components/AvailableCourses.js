@@ -38,9 +38,10 @@ const courses = [
       "5. Smart FD",
       "6. Portfolio Management",
       "7. AI Systems in Finance",
+      " Stock Market From Scratch + Value Investing both included [NO EXTRA CHARGE]."
     ],
     duration: "4 Months (16 live Classes, 2 hours each)",
-    price: "1999 INR",
+    price: "1769 INR",
   },
   {
     id: 2,
@@ -57,11 +58,11 @@ const courses = [
       "6. Real-Time Language Translation and Summarization.",
       "7. Grammar and Style Enhancement for Writing.",
       "8. Email Drafting and Reply Suggestions.",
-      "9. Website Development Using AI",
-      "10. Resume Building Using AI.",
+      "9. Resume Building Using AI.",
+      "10. Website Development Using AI (MAIN COMPONENT)",
     ],
     duration: "2 Months (8 live Class, 2 hours each)",
-    price: "1199 INR",
+    price: "1249 INR",
   },
 ];
 
@@ -197,7 +198,8 @@ const AvailableCourses = () => {
             <p className="motivator">
               You’re investing in your growth. Let’s go! 🚀
             </p>
-
+            <p> After Payment, share the screenshot through Whatsapp for Next Updates.</p>
+            <p> If no slot is found available, your money will be refunded back to source within 24hours.</p>
             {/* CONFETTI ANIMATION */}
             {showConfetti && <Confetti width={width} height={height} />}
           </motion.div>
