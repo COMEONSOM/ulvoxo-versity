@@ -4,8 +4,8 @@
 :root {
   /* Palette */
   --clr-bg:           #1a202c;
-  --clr-surface:      #1a202c;
-  --clr-surface-alt:  #202336;
+  --clr-surface:      #000000;
+  --clr-surface-alt:  #000000;
   --clr-text:         #e5e8ff;
   --clr-accent:       #5f6dff;
   --clr-accent-glow:  rgba(95 109 255 / 0.45);

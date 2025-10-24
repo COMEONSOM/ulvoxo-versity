@@ -6,7 +6,7 @@
 // manforceutube@gmail.com -- firebase project owner email --
 
 import "../styles/Header.css"; // HEADER-SPECIFIC STYLES
-import logo from "../assets/logo.png"; // COMPANY LOGO
+import logo from "../assets/openroot-logo.svg"; // COMPANY LOGO
 
 function Header() {
   return (
@@ -16,6 +16,7 @@ function Header() {
          ====================================================== */}
       <div className="company-info">
         <img src={logo} alt="Company Logo" className="company-logo" />
+        <span className="brand-tag">#classes</span>
       </div>
     </header>
   );

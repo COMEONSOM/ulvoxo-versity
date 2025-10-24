@@ -1,70 +1,80 @@
-// ---------- imports ----------
-import  { useState, useEffect } from 'react';
+// ============================================================
+// 🧩 FOOTER COMPONENT
+// Optimized Version — Developer Friendly & Readable
+// ------------------------------------------------------------
+// Author: SOM BANERJEE
+// Date: October 2025
+// Notes:
+// - Unnecessary scroll animations removed
+// - Typewriter text slowed down for readability
+// - Added bold styling once sentence completes
+// - Extensive developer comments for clarity
+// ============================================================
+
+// ---------- IMPORTS ----------
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import '../styles/Footer.css';
 
-import WhatsAppLogo  from '../assets/whatsapp-logo.png';
-import GmailLogo     from '../assets/gmail-logo.png';
+// ---------- ASSET IMPORTS ----------
+import WhatsAppLogo from '../assets/whatsapp-logo.png';
+import GmailLogo from '../assets/gmail-logo.png';
 import InstagramLogo from '../assets/instagram-logo.png';
-import YouTubeLogo   from '../assets/youtube-logo.png';
-import FacebookLogo  from '../assets/facebook-logo.png';
-import TwitterLogo   from '../assets/twitter-logo.png';
+import YouTubeLogo from '../assets/youtube-logo.png';
+import FacebookLogo from '../assets/facebook-logo.png';
+import TwitterLogo from '../assets/twitter-logo.png';
 
-// ---------- constants ----------
+// ---------- CONSTANTS ----------
 const FOUNDER_DETAILS_URL = 'https://www.xfactorial.online/Other-files/founder.html';
-const TERMS_PAGE_URL      = 'https://www.xfactorial.online/Other-files/terms.html';
-const TYPEWRITER_TEXT     = 'REDEFINE LEARNING. BREAK THE TRADITIONAL.';
+const TERMS_PAGE_URL = 'https://www.xfactorial.online/Other-files/terms.html';
+const TYPEWRITER_TEXT = 'REDEFINE LEARNING. BREAK THE TRADITIONAL.';
 
-// ---------- motion variants ----------
-const fadeSlide = {
-  hidden: { opacity: 0, y: 40 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }
-  }
-};
-
-// ---------- Typewriter component ----------
+// ============================================================
+// 🖋️ TYPEWRITER COMPONENT
+// ------------------------------------------------------------
+// RESPONSIBLE FOR RENDERING AN ANIMATED TYPEWRITER EFFECT.
+// ADDED SLOWER SPEED, BOLD FINAL TEXT, AND LONGER READ PAUSE.
+// ============================================================
 const Typewriter = () => {
   const [display, setDisplay] = useState('');
   const [deleting, setDeleting] = useState(false);
   const [pause, setPause] = useState(false);
+  const [completed, setCompleted] = useState(false); // TRACKS WHEN SENTENCE IS FULLY DISPLAYED
 
   useEffect(() => {
     const fullText = TYPEWRITER_TEXT;
     let timer;
 
-    // If we’re in the pause phase, wait 7.5s then resume typing
+    // ---------- LONG PAUSE AFTER SENTENCE COMPLETION ----------
     if (pause) {
       timer = setTimeout(() => {
         setPause(false);
-        setDeleting(false);    // start typing again
-      }, 7500);
+        setDeleting(false);
+        setCompleted(false);
+      }, 8000); // 8 SECONDS PAUSE FOR READABILITY
       return () => clearTimeout(timer);
     }
 
-    // Typing phase
+    // ---------- TYPING PHASE ----------
     if (!deleting) {
       if (display.length < fullText.length) {
-        timer = setTimeout(
-          () => setDisplay(fullText.slice(0, display.length + 1)),
-          120
-        );
+        timer = setTimeout(() => {
+          setDisplay(fullText.slice(0, display.length + 1));
+        }, 180); // TYPING SPEED: SLOWER FOR BETTER VISIBILITY
       } else {
-        // immediately switch to deleting once fully typed
+        // ONCE FULL TEXT IS DISPLAYED
+        setCompleted(true);
         setDeleting(true);
       }
     }
-    // Deleting phase
+    // ---------- DELETING PHASE ----------
     else {
       if (display.length > 0) {
-        timer = setTimeout(
-          () => setDisplay(fullText.slice(0, display.length - 1)),
-          80
-        );
+        timer = setTimeout(() => {
+          setDisplay(fullText.slice(0, display.length - 1));
+        }, 80);
       } else {
-        // once fully deleted, enter one big pause
+        // AFTER FULL DELETION, ENTER PAUSE
         setPause(true);
       }
     }
@@ -74,15 +84,22 @@ const Typewriter = () => {
 
   return (
     <div className="typewriter-text">
-      {display}
+      <span style={{ fontWeight: completed ? 'bold' : 'normal' }}>
+        {display}
+      </span>
       <span className="cursor">|</span>
     </div>
   );
 };
 
-// ---------- Footer Component ----------
+// ============================================================
+// 🧠 FOOTER COMPONENT
+// ------------------------------------------------------------
+// CONTAINS CONTACT BUTTONS, SOCIAL LINKS, AND TYPEWRITER SECTION.
+// CLEANED ANIMATIONS FOR BETTER PERFORMANCE.
+// ============================================================
 const Footer = () => {
-  /* CTA handlers */
+  // ---------- CTA HANDLERS ----------
   const handleWhatsAppClick = () =>
     window.open('https://wa.me/917866049865', '_blank');
 
@@ -94,19 +111,19 @@ const Footer = () => {
 
   return (
     <>
-      <motion.div
-        className="contact-container"
-        variants={fadeSlide}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        {/* ---- Contact Us + Follow Us together ---- */}
+      {/* ============================================================
+           CONTACT & FOLLOW SECTION
+           ------------------------------------------------------------
+           - COMBINES CONTACT BUTTONS AND SOCIAL ICONS
+           - REMOVED VIEWPORT SCROLL ANIMATIONS FOR PERFORMANCE
+         ============================================================ */}
+      <div className="contact-container">
         <div className="contact-follow-wrapper">
-          {/* Contact */}
+          {/* ---------- CONTACT US SECTION ---------- */}
           <div className="contact-section">
             <h2>Contact Us</h2>
             <div className="button-container">
+              {/* WHATSAPP BUTTON */}
               <motion.button
                 whileHover={{ y: -6, filter: 'brightness(1.2)' }}
                 whileTap={{ scale: 0.96 }}
@@ -115,6 +132,8 @@ const Footer = () => {
               >
                 <img src={WhatsAppLogo} alt="WhatsApp" className="button-icon" />
               </motion.button>
+
+              {/* EMAIL BUTTON */}
               <motion.button
                 whileHover={{ y: -6, filter: 'brightness(1.2)' }}
                 whileTap={{ scale: 0.96 }}
@@ -126,15 +145,15 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Follow Us */}
+          {/* ---------- FOLLOW US SECTION ---------- */}
           <div className="follow-us-section">
             <h3 className="follow-us-heading">Follow Us</h3>
             <div className="social-icons">
               {[
                 { href: 'https://www.instagram.com/xfactorial.in?utm_source=qr&igsh=bXNiNGFjcXFwcnVq', img: InstagramLogo, alt: 'Instagram' },
-                { href: 'https://youtube.com/@asversity_technologies?si=VM-w53FEMc9aeyiS', img: YouTubeLogo,   alt: 'YouTube'    },
-                { href: 'https://www.facebook.com/asversityfacebook...', img: FacebookLogo,  alt: 'Facebook'   },
-                { href: 'https://x.com/comeonsom_?t=GCaq6uE0FodJOuC8854iEg&s=09',                  img: TwitterLogo,   alt: 'Twitter/X'  },
+                { href: 'https://youtube.com/@asversity_technologies?si=VM-w53FEMc9aeyiS', img: YouTubeLogo, alt: 'YouTube' },
+                { href: 'https://www.facebook.com/asversityfacebook...', img: FacebookLogo, alt: 'Facebook' },
+                { href: 'https://x.com/comeonsom_?t=GCaq6uE0FodJOuC8854iEg&s=09', img: TwitterLogo, alt: 'Twitter/X' },
               ].map(({ href, img, alt }) => (
                 <motion.a
                   key={alt}
@@ -149,29 +168,43 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Typewriter filler */}
+          {/* ---------- TYPEWRITER DISPLAY ---------- */}
           <div className="typewriter-wrapper">
             <Typewriter />
           </div>
         </div>
-      </motion.div>
+      </div>
 
-      {/* ---- Footer strip ---- */}
+      {/* ============================================================
+           FOOTER STRIP
+           ------------------------------------------------------------
+           - CONTAINS COPYRIGHT + QUICK LINKS
+         ============================================================ */}
       <footer className="footer">
-        <p>© {new Date().getFullYear()} ULVOXO VERSITY. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} OPENROOT. All rights reserved.</p>
         <p>
+          {/* FOUNDER DETAILS LINK */}
           <motion.span
             className="clickable-text"
             onClick={() => window.open(FOUNDER_DETAILS_URL, '_blank')}
-            whileHover={{ textShadow: '0px 0px 8px var(--highlight-color)', scale: 1.04 }}
+            whileHover={{
+              textShadow: '0px 0px 8px var(--highlight-color)',
+              scale: 1.04
+            }}
           >
             Founder Details
           </motion.span>
+
           {' | '}
+
+          {/* TERMS OF SERVICE LINK */}
           <motion.span
             className="clickable-text"
             onClick={() => window.open(TERMS_PAGE_URL, '_blank')}
-            whileHover={{ textShadow: '0px 0px 8px var(--highlight-color)', scale: 1.04 }}
+            whileHover={{
+              textShadow: '0px 0px 8px var(--highlight-color)',
+              scale: 1.04
+            }}
           >
             Terms of Service
           </motion.span>
@@ -181,4 +214,5 @@ const Footer = () => {
   );
 };
 
+// ---------- EXPORT ----------
 export default Footer;

@@ -22,9 +22,9 @@
   --spacing-md: 0.8rem;
   --spacing-lg: 1rem;
 
-  --logo-size-mobile: 160px;
-  --logo-size-tablet: 180px;
-  --logo-size-desktop: 220px;
+  --logo-size-mobile: 120px;
+  --logo-size-tablet: 150px;
+  --logo-size-desktop: 180px;
 }
 
 /* ============================================================
@@ -36,7 +36,7 @@
   justify-content: flex-start; /* ALWAYS LEFT */
   align-items: center;
   padding: var(--spacing-md) var(--spacing-lg);
-  margin: 10px 0;
+  margin: 6px 0;
   background-color: var(--color-bg);
   font-family: var(--font-family);
   position: relative;
@@ -61,7 +61,15 @@
   border-radius: 8px;
   transition: transform 0.3s ease;
 }
-
+.brand-tag {
+  font-family: "Poppins", "Inter", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000000; /* Matches your openroot logo text */
+  letter-spacing: 0.5px;
+  position: relative;
+  top: 1px;
+}
 /* ============================================================
    RESPONSIVE DESIGN — SCALE LOGO & TEXT
    ============================================================ */
