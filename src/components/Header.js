@@ -1,12 +1,11 @@
 // ============================================================
-// HEADER COMPONENT — 2026 READY
+// HEADER COMPONENT — VERSION 1.1.4
 // CLEAN, RESPONSIVE, AND PERFORMANCE-OPTIMIZED
-// NO LOGIN/LOGOUT LOGIC — PURELY UI
 // ============================================================
-// manforceutube@gmail.com -- firebase project owner email --
+// manforceutube
 
 import "../styles/Header.css"; // HEADER-SPECIFIC STYLES
-import logo from "../assets/openroot-logo.svg"; // COMPANY LOGO
+import logo from "../assets/open-root-light.png"; // COMPANY LOGO
 
 function Header() {
   return (

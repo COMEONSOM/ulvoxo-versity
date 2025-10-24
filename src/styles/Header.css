@@ -1,7 +1,7 @@
 /* ============================================================
-   HEADER STYLES — 2026 READY
-   LOGO + NAME + SLOGAN ALWAYS LEFT ALIGNED
+   HEADER STYLES -- VERSION 1.1.4
    SIZE SCALES BASED ON SCREEN SIZE
+   AUTHOR: TEAM OPENROOT
    ============================================================ */
 
 /* ------------------------------------------------------------
@@ -23,8 +23,8 @@
   --spacing-lg: 1rem;
 
   --logo-size-mobile: 120px;
-  --logo-size-tablet: 150px;
-  --logo-size-desktop: 180px;
+  --logo-size-tablet: 140px;
+  --logo-size-desktop: 160px;
 }
 
 /* ============================================================

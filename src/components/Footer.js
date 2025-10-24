@@ -1,22 +1,15 @@
 // ============================================================
-// 🧩 FOOTER COMPONENT
-// Optimized Version — Developer Friendly & Readable
+// 🧩 FOOTER COMPONENT — SYNCED WITH LATEST VERSION 1.1.4
 // ------------------------------------------------------------
-// Author: SOM BANERJEE
-// Date: October 2025
-// Notes:
-// - Unnecessary scroll animations removed
-// - Typewriter text slowed down for readability
-// - Added bold styling once sentence completes
-// - Extensive developer comments for clarity
+// AUTHOR: TEAM OPENROOT
+// DATE: OCTOBER 2025
 // ============================================================
 
-// ---------- IMPORTS ----------
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import '../styles/Footer.css';
 
-// ---------- ASSET IMPORTS ----------
+// ---------- IMPORTED ICONS ----------
 import WhatsAppLogo from '../assets/whatsapp-logo.png';
 import GmailLogo from '../assets/gmail-logo.png';
 import InstagramLogo from '../assets/instagram-logo.png';
@@ -24,57 +17,41 @@ import YouTubeLogo from '../assets/youtube-logo.png';
 import FacebookLogo from '../assets/facebook-logo.png';
 import TwitterLogo from '../assets/twitter-logo.png';
 
-// ---------- CONSTANTS ----------
+// ---------- CONSTANT LINKS ----------
 const FOUNDER_DETAILS_URL = 'https://www.xfactorial.online/Other-files/founder.html';
 const TERMS_PAGE_URL = 'https://www.xfactorial.online/Other-files/terms.html';
-const TYPEWRITER_TEXT = 'REDEFINE LEARNING. BREAK THE TRADITIONAL.';
+const TYPEWRITER_TEXT = 'REDEFINE LEARNING.';
 
 // ============================================================
-// 🖋️ TYPEWRITER COMPONENT
-// ------------------------------------------------------------
-// RESPONSIBLE FOR RENDERING AN ANIMATED TYPEWRITER EFFECT.
-// ADDED SLOWER SPEED, BOLD FINAL TEXT, AND LONGER READ PAUSE.
+// TYPEWRITER COMPONENT — HANDLES TEXT ANIMATION SAFELY
 // ============================================================
 const Typewriter = () => {
   const [display, setDisplay] = useState('');
   const [deleting, setDeleting] = useState(false);
   const [pause, setPause] = useState(false);
-  const [completed, setCompleted] = useState(false); // TRACKS WHEN SENTENCE IS FULLY DISPLAYED
 
   useEffect(() => {
     const fullText = TYPEWRITER_TEXT;
     let timer;
 
-    // ---------- LONG PAUSE AFTER SENTENCE COMPLETION ----------
     if (pause) {
       timer = setTimeout(() => {
         setPause(false);
         setDeleting(false);
-        setCompleted(false);
-      }, 8000); // 8 SECONDS PAUSE FOR READABILITY
+      }, 8000);
       return () => clearTimeout(timer);
     }
 
-    // ---------- TYPING PHASE ----------
     if (!deleting) {
       if (display.length < fullText.length) {
-        timer = setTimeout(() => {
-          setDisplay(fullText.slice(0, display.length + 1));
-        }, 180); // TYPING SPEED: SLOWER FOR BETTER VISIBILITY
+        timer = setTimeout(() => setDisplay(fullText.slice(0, display.length + 1)), 180);
       } else {
-        // ONCE FULL TEXT IS DISPLAYED
-        setCompleted(true);
         setDeleting(true);
       }
-    }
-    // ---------- DELETING PHASE ----------
-    else {
+    } else {
       if (display.length > 0) {
-        timer = setTimeout(() => {
-          setDisplay(fullText.slice(0, display.length - 1));
-        }, 80);
+        timer = setTimeout(() => setDisplay(fullText.slice(0, display.length - 1)), 80);
       } else {
-        // AFTER FULL DELETION, ENTER PAUSE
         setPause(true);
       }
     }
@@ -84,83 +61,99 @@ const Typewriter = () => {
 
   return (
     <div className="typewriter-text">
-      <span style={{ fontWeight: completed ? 'bold' : 'normal' }}>
-        {display}
-      </span>
+      <span style={{ fontWeight: 'bold' }}>{display}</span>
       <span className="cursor">|</span>
     </div>
   );
 };
 
 // ============================================================
-// 🧠 FOOTER COMPONENT
-// ------------------------------------------------------------
-// CONTAINS CONTACT BUTTONS, SOCIAL LINKS, AND TYPEWRITER SECTION.
-// CLEANED ANIMATIONS FOR BETTER PERFORMANCE.
+// FOOTER COMPONENT — MAIN WRAPPER
 // ============================================================
 const Footer = () => {
-  // ---------- CTA HANDLERS ----------
-  const handleWhatsAppClick = () =>
-    window.open('https://wa.me/917866049865', '_blank');
-
-  const handleEmailClick = () =>
-    window.open(
-      'https://mail.google.com/mail/?view=cm&fs=1&to=asversity.helpdesk@gmail.com',
-      '_blank'
-    );
+  // ---------- SAFE LINK OPEN FUNCTION ----------
+  const openLinkSafely = (url) => {
+    try {
+      if (!url || typeof url !== 'string') throw new Error('INVALID URL');
+      window.open(url, '_blank', 'noopener,noreferrer');
+    } catch (error) {
+      console.error('LINK OPEN ERROR:', error);
+      alert('Sorry, something went wrong while opening the link.');
+    }
+  };
 
   return (
     <>
-      {/* ============================================================
-           CONTACT & FOLLOW SECTION
-           ------------------------------------------------------------
-           - COMBINES CONTACT BUTTONS AND SOCIAL ICONS
-           - REMOVED VIEWPORT SCROLL ANIMATIONS FOR PERFORMANCE
-         ============================================================ */}
+      {/* =======================================================
+          CONTACT + FOLLOW + TYPEWRITER WRAPPER (MAIN GRID)
+         ======================================================= */}
       <div className="contact-container">
         <div className="contact-follow-wrapper">
-          {/* ---------- CONTACT US SECTION ---------- */}
-          <div className="contact-section">
+
+          {/* ===================== CONTACT SECTION ===================== */}
+          <div className="contact-section card">
             <h2>Contact Us</h2>
             <div className="button-container">
               {/* WHATSAPP BUTTON */}
               <motion.button
-                whileHover={{ y: -6, filter: 'brightness(1.2)' }}
+                whileHover={{ y: -4, filter: 'brightness(1.2)' }}
                 whileTap={{ scale: 0.96 }}
-                onClick={handleWhatsAppClick}
-                className="contact-whatsapp-button"
+                onClick={() => openLinkSafely('https://wa.me/917866049865')}
+                className="icon-button"
+                aria-label="Contact via WhatsApp"
               >
                 <img src={WhatsAppLogo} alt="WhatsApp" className="button-icon" />
               </motion.button>
 
               {/* EMAIL BUTTON */}
               <motion.button
-                whileHover={{ y: -6, filter: 'brightness(1.2)' }}
+                whileHover={{ y: -4, filter: 'brightness(1.2)' }}
                 whileTap={{ scale: 0.96 }}
-                onClick={handleEmailClick}
-                className="contact-email-button"
+                onClick={() =>
+                  openLinkSafely(
+                    'https://mail.google.com/mail/?view=cm&fs=1&to=asversity.helpdesk@gmail.com'
+                  )
+                }
+                className="icon-button"
+                aria-label="Contact via Email"
               >
                 <img src={GmailLogo} alt="Gmail" className="button-icon" />
               </motion.button>
             </div>
           </div>
 
-          {/* ---------- FOLLOW US SECTION ---------- */}
-          <div className="follow-us-section">
+          {/* ===================== FOLLOW-US SECTION ===================== */}
+          <div className="follow-us-section card">
             <h3 className="follow-us-heading">Follow Us</h3>
             <div className="social-icons">
               {[
-                { href: 'https://www.instagram.com/xfactorial.in?utm_source=qr&igsh=bXNiNGFjcXFwcnVq', img: InstagramLogo, alt: 'Instagram' },
-                { href: 'https://youtube.com/@asversity_technologies?si=VM-w53FEMc9aeyiS', img: YouTubeLogo, alt: 'YouTube' },
+                {
+                  href: 'https://www.instagram.com/xfactorial.in?utm_source=qr&igsh=bXNiNGFjcXFwcnVq',
+                  img: InstagramLogo,
+                  alt: 'Instagram',
+                },
+                {
+                  href: 'https://youtube.com/@asversity_technologies?si=VM-w53FEMc9aeyiS',
+                  img: YouTubeLogo,
+                  alt: 'YouTube',
+                },
                 { href: 'https://www.facebook.com/asversityfacebook...', img: FacebookLogo, alt: 'Facebook' },
-                { href: 'https://x.com/comeonsom_?t=GCaq6uE0FodJOuC8854iEg&s=09', img: TwitterLogo, alt: 'Twitter/X' },
+                {
+                  href: 'https://x.com/comeonsom_?t=GCaq6uE0FodJOuC8854iEg&s=09',
+                  img: TwitterLogo,
+                  alt: 'Twitter/X',
+                },
               ].map(({ href, img, alt }) => (
                 <motion.a
                   key={alt}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ y: -6, filter: 'brightness(1.2)' }}
+                  whileHover={{ y: -4, filter: 'brightness(1.2)' }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    openLinkSafely(href);
+                  }}
                 >
                   <img src={img} alt={alt} />
                 </motion.a>
@@ -168,42 +161,35 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* ---------- TYPEWRITER DISPLAY ---------- */}
-          <div className="typewriter-wrapper">
+          {/* ===================== TYPEWRITER SECTION ===================== */}
+          <div className="typewriter-wrapper card">
             <Typewriter />
           </div>
+
         </div>
       </div>
 
-      {/* ============================================================
-           FOOTER STRIP
-           ------------------------------------------------------------
-           - CONTAINS COPYRIGHT + QUICK LINKS
-         ============================================================ */}
+      {/* ===================== FOOTER STRIP ===================== */}
       <footer className="footer">
         <p>© {new Date().getFullYear()} OPENROOT. All rights reserved.</p>
         <p>
-          {/* FOUNDER DETAILS LINK */}
           <motion.span
             className="clickable-text"
-            onClick={() => window.open(FOUNDER_DETAILS_URL, '_blank')}
+            onClick={() => openLinkSafely(FOUNDER_DETAILS_URL)}
             whileHover={{
-              textShadow: '0px 0px 8px var(--highlight-color)',
-              scale: 1.04
+              textShadow: '0px 0px 8px var(--color-accent-glow)',
+              scale: 1.04,
             }}
           >
             Founder Details
           </motion.span>
-
           {' | '}
-
-          {/* TERMS OF SERVICE LINK */}
           <motion.span
             className="clickable-text"
-            onClick={() => window.open(TERMS_PAGE_URL, '_blank')}
+            onClick={() => openLinkSafely(TERMS_PAGE_URL)}
             whileHover={{
-              textShadow: '0px 0px 8px var(--highlight-color)',
-              scale: 1.04
+              textShadow: '0px 0px 8px var(--color-accent-glow)',
+              scale: 1.04,
             }}
           >
             Terms of Service
@@ -214,5 +200,4 @@ const Footer = () => {
   );
 };
 
-// ---------- EXPORT ----------
 export default Footer;

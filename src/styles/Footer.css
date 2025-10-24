@@ -1,170 +1,252 @@
-/* src/styles/Footer.css */
+/* ============================================================
+   🌐 FOOTER STYLES — VERSION 1.1.4
+   FULLY RESPONSIVE | HIGHLY SCALABLE | UX-OPTIMIZED
+   AUTHOR: TEAM OPENROOT
+   ============================================================ */
 
-/*──────── 1) DESIGN TOKENS ────────*/
+/* ============================================================
+   1️⃣ DESIGN TOKENS — UNIVERSAL VARIABLES
+   ============================================================ */
 :root {
-  /* Palette */
-  --clr-bg:           #1a202c;
-  --clr-surface:      #000000;
-  --clr-surface-alt:  #000000;
-  --clr-text:         #e5e8ff;
-  --clr-accent:       #5f6dff;
-  --clr-accent-glow:  rgba(95 109 255 / 0.45);
+  --clr-bg: #32323200;
+  --clr-surface: #000000;
+  --clr-surface-alt: #000000;
+  --clr-text: #e5e8ff;
+  --clr-accent: #5f6dff;
+  --clr-accent-glow: rgba(95, 109, 255, 0.45);
 
-  /* Neumorphic shadow */
   --neu-offset: 8px;
-  --neu-blur:  16px;
-  --neu-light: rgba(255 255 255 / 0.07);
-  --neu-dark:  rgba(  0   0   0 / 0.55);
+  --neu-blur: 16px;
+  --neu-light: rgba(0, 0, 0, 0.55);
+  --neu-dark: rgba(0, 0, 0, 0.55);
 
-  /* Spacing / radius */
-  --r: 0 rem;     /* card radius */
-  --s-xs: .4rem;   /* tiny gap    */
-  --s-sm: .8rem;   /* small       */
-  --s-md: 1.2rem;  /* medium      */
-  --s-lg: 0 rem;    /* large top/bottom padding */
-  --s-gap: 0 rem; /* gap between cards */
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 24px;
 
-  /* Typography */
-  --font-base: 'Inter','Segoe UI',sans-serif;
-  --fs-sm: .9rem;
+  --s-xs: 0.4rem;
+  --s-sm: 0.8rem;
+  --s-md: 1.2rem;
+  --s-lg: 1.6rem;
+  --s-xl: 2.4rem;
+  --s-xxl: 3rem;
+
+  --font-base: 'Inter', 'Segoe UI', sans-serif;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.9rem;
   --fs-md: 1rem;
-  --fs-lg: 1rem;
+  --fs-lg: 1.1rem;
+  --fs-xl: 1.25rem;
+  --fs-xxl: 1.5rem;
+
+  --transition-fast: 0.18s ease-out;
+  --transition-medium: 0.25s ease;
+  --transition-slow: 0.35s ease-in-out;
+
+  --bp-xs: 480px;
+  --bp-sm: 767px;
+  --bp-md: 1024px;
+  --bp-lg: 1440px;
 }
 
-/*──────── 2) OUTER WRAPPER ────────*/
-.contact-container{
+/* ============================================================
+   2️⃣ OUTER WRAPPER — MAIN CONTAINER
+   ============================================================ */
+.contact-container {
   background: var(--clr-bg);
   color: var(--clr-text);
   padding: var(--s-lg) var(--s-md);
   font-family: var(--font-base);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-md);
 }
 
-/*──────── 3) GRID LAYOUT ────────*/
-.contact-follow-wrapper{
-  display:grid;
-  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
-  gap: var(--s-gap);
-  grid-auto-flow: dense;
+/* ============================================================
+   3️⃣ GRID LAYOUT — CONTACT + FOLLOW + TYPEWRITER
+   ============================================================ */
+.contact-follow-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--s-md);
+  align-items: stretch;
 }
 
-/*──────── 4) UNIVERSAL CARD STYLE ────────*/
+/* ============================================================
+   4️⃣ UNIVERSAL CARD STYLES — CONTACT + FOLLOW + TYPEWRITER
+   ============================================================ */
 .contact-section,
 .follow-us-section,
-.typewriter-wrapper{
+.typewriter-wrapper {
   background: var(--clr-surface);
-  border-radius: var(--r);
+  border-radius: var(--r-sm);
   padding: var(--s-md);
-  transition: transform .18s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 160px;
 }
 
-/*──────── 5) CONTACT BLOCK ────────*/
-.contact-section h2{
-  margin:0 0 var(--s-sm);
+.contact-section h2,
+.follow-us-heading {
   text-align: center;
   font-size: var(--fs-md);
   color: var(--clr-accent);
+  font-weight: 600;
 }
-.button-container{
-  display:flex;
-  justify-content:center;
+
+.button-icon {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.social-icons,
+.button-container {
+  display: flex;
   gap: var(--s-sm);
+  flex-wrap: wrap;
+  justify-content: center;
 }
+
+.social-icons a img,
 .contact-whatsapp-button,
-.contact-email-button{
-  width:3rem; height:3rem;
-  display:flex; align-items:center; justify-content:center;
-  border:none; border-radius:25%;
-  background: var(--clr-surface-alt);
-  cursor:pointer;
-  box-shadow:
-    inset calc(var(--neu-offset)/4) calc(var(--neu-offset)/4) var(--neu-blur) var(--neu-dark),
-    inset calc(-1*var(--neu-offset)/4) calc(-1*var(--neu-offset)/4) var(--neu-blur) var(--neu-light);
-  transition: transform .18s ease, box-shadow .18s ease;
-}
-.contact-whatsapp-button:hover,
-.contact-email-button:hover{
-  transform: translateY(-3px);
-  box-shadow:0 0 10px var(--clr-accent),0 0 18px var(--clr-accent-glow);
-}
-.button-icon{ width:1.3rem; height:1.3rem; }
-
-/*──────── 6) FOLLOW-US BLOCK ────────*/
-.follow-us-heading{
-  margin:0 0 var(--s-sm);
-  text-align: center;
-  font-size: var(--fs-md);
-  color: var(--clr-accent);
-}
-.social-icons{
-  display:flex;
-  gap: var(--s-sm);
-  flex-wrap:wrap;
-  justify-content:center;
-}
-.social-icons a img{
-  width:2.5rem; height:2.5rem;
-  padding:var(--s-xs);
-  border-radius:25%;
+.contact-email-button {
+  width: auto;
+  max-height: 2.5rem;
+  padding: var(--s-xs);
+  border-radius: var(--r-md);
   background: var(--clr-surface-alt);
   box-shadow:
     inset calc(var(--neu-offset)/5) calc(var(--neu-offset)/5) var(--neu-blur) var(--neu-dark),
     inset calc(-1*var(--neu-offset)/5) calc(-1*var(--neu-offset)/5) var(--neu-blur) var(--neu-light);
-  transition: transform .18s ease, box-shadow .18s ease;
-}
-.social-icons a:hover img{
-  transform: translateY(-4px);
-  box-shadow:0 0 8px var(--clr-accent),0 0 16px var(--clr-accent-glow);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  will-change: transform, box-shadow;
 }
 
-/*──────── 7) TYPEWRITER BLOCK ────────*/
-/* Full-row span removes the blank band */
-.typewriter-wrapper{
-  display:flex; align-items:center; justify-content:center;
-  min-height:70px;
+.social-icons a:hover img,
+.contact-whatsapp-button:hover,
+.contact-email-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 8px var(--clr-accent), 0 0 16px var(--clr-accent-glow);
 }
-.typewriter-text{ font-family:monospace; white-space:nowrap; font-size:var(--fs-md); }
-.cursor{
-  margin-left:2px;
-  animation: blink .75s steps(1) infinite;
+
+/* ============================================================
+   5️⃣ TYPEWRITER STYLES
+   ============================================================ */
+.typewriter-wrapper {
+  font-family: monospace;
+  text-align: center;
 }
-@media (max-width: 768px) {
+
+.typewriter-text {
+  font-family: monospace;
+  white-space: nowrap;
+  font-size: var(--fs-md);
+  overflow: hidden;
+  color: #e5e8ff;
+}
+
+.cursor {
+  margin-left: 2px;
+  animation: blink 0.75s steps(1) infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+/* ============================================================
+   6️⃣ FOOTER STRIP
+   ============================================================ */
+.footer {
+  background: var(--clr-surface);
+  color: #f2edb8;
+  padding: var(--s-md) var(--s-sm);
+  text-align: center;
+  font-size: var(--fs-sm);
+  border-top: 1px solid var(--neu-light);
+}
+
+.footer p {
+  margin: var(--s-xs) 0;
+}
+
+.clickable-text {
+  color: var(--clr-accent);
+  cursor: pointer;
+  position: relative;
+  transition: color var(--transition-medium), text-shadow var(--transition-medium);
+}
+
+.clickable-text:hover {
+  color: #ffffff;
+  text-shadow: 0 0 6px var(--clr-accent), 0 0 12px var(--clr-accent-glow);
+}
+
+.clickable-text::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background: var(--clr-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-medium);
+}
+
+.clickable-text:hover::after {
+  transform: scaleX(1);
+}
+
+/* ============================================================
+   7️⃣ RESPONSIVE ENHANCEMENTS
+   ============================================================ */
+
+/* EXTRA SMALL SCREENS — PHONES */
+@media (max-width: var(--bp-xs)) {
+  .contact-container {
+    padding: var(--s-sm);
+  }
+  .contact-section,
+  .follow-us-section,
   .typewriter-wrapper {
-    grid-column: 1 / -1;
+    padding: var(--s-sm);
+    min-height: 120px;
+  }
+  .social-icons a img,
+  .contact-whatsapp-button,
+  .contact-email-button {
+    width: 2rem;
+    height: 2rem;
   }
 }
 
-@keyframes blink{ 0%,50%{opacity:1} 50.01%,100%{opacity:0} }
+/* SMALL DEVICES — MOBILE LANDSCAPE / SMALL TABLETS */
+@media (min-width: calc(var(--bp-xs) + 1px)) and (max-width: var(--bp-sm)) {
+  .social-icons a img,
+  .contact-whatsapp-button,
+  .contact-email-button {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+}
 
-/*──────── 8) FOOTER STRIP ────────*/
-.footer{
-  margin-top:var(--s-lg);
-  background: var(--clr-surface);
-  color: #626565;
-  padding: var(--s-md) var(--s-sm);
-  text-align:center;
-  font-size: var(--fs-sm);
-  border-top:1px solid var(--neu-light);
-  box-shadow:
-    0 calc(-1*var(--neu-offset)/2) var(--neu-blur) var(--neu-light),
-    0 var(--neu-offset)/2 var(--neu-blur) var(--neu-dark);
-}
-.footer p{ margin:var(--s-xs) 0; }
+/* MEDIUM DEVICES & UP — TABLETS, DESKTOPS */
+@media (min-width: 768px) {
+  .contact-follow-wrapper {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-md);
+  }
 
-.clickable-text{
-  color: var(--clr-accent);
-  cursor:pointer;
-  position:relative;
-  transition: color .2s ease, text-shadow .2s ease;
+  .contact-section,
+  .follow-us-section,
+  .typewriter-wrapper {
+    min-height: 180px;
+  }
 }
-.clickable-text:hover{
-  color:#fff;
-  text-shadow:0 0 6px var(--clr-accent),0 0 12px var(--clr-accent-glow);
-}
-.clickable-text::after{
-  content:''; position:absolute; left:0; bottom:-2px;
-  width:100%; height:2px; background:var(--clr-accent);
-  transform:scaleX(0); transform-origin:left;
-  transition: transform .25s ease;
-}
-.clickable-text:hover::after{ transform:scaleX(1); }
-
