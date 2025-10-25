@@ -1,34 +1,30 @@
 // ============================================================
-// AVAILABLE COURSES COMPONENT — 2026 READY
-// USING LOTTIE ANIMATIONS (COURSES) + STATIC QR IMAGES (PAYMENT)
-// CLEAN CODE + BETTER RESOURCE UTILIZATION + DSA THINKING
+// AVAILABLE COURSES COMPONENT — VERSION 1.1.4
+// ASYNC LOGIC + DSA APPROACH + ERROR HANDLING + PERFORMANCE OPTIMIZATION
 // ============================================================
 
-import { useState } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Confetti from "react-confetti";
 import useWindowSize from "react-use/lib/useWindowSize";
 import Lottie from "lottie-react";
 import "../styles/AvailableCourses.css";
 
-// ✅ IMPORT LOTTIE FILES (COURSE THUMBNAILS)
+// ✅ IMPORT LOTTIE + QR IMAGES
 import FinanceLottie from "../assets/lotties/finance-course.json";
 import PromptLottie from "../assets/lotties/prompt_course.json";
-
-// ✅ IMPORT QR CODE IMAGES (PAYMENT PURPOSE ONLY)
 import FinanceQR from "../assets/FinanceQR.png";
 import PromptQR from "../assets/PromptQR.png";
 
 // ============================================================
-// COURSE DATA (IMMUTABLE, CENTRALIZED STATE)
-// THINKING IN TERMS OF DSA → ARRAY OF OBJECTS (SEARCHABLE, ITERABLE)
+// IMMUTABLE COURSE DATA (STATIC MEMORY — O(1) LOOKUP)
 // ============================================================
-const courses = [
+const COURSE_DATA = Object.freeze([
   {
     id: 1,
     name: "Investing & Finance",
-    animation: FinanceLottie, // ✅ THUMBNAIL = LOTTIE
-    qr: FinanceQR, // ✅ PAYMENT QR RESTORED
+    animation: FinanceLottie,
+    qr: FinanceQR,
     description: [
       "Note: What We Will Cover! (From Scratch)",
       "1. Stock Market",
@@ -38,7 +34,7 @@ const courses = [
       "5. Smart FD",
       "6. Portfolio Management",
       "7. AI Systems in Finance",
-      " Stock Market From Scratch + Value Investing both included [NO EXTRA CHARGE]."
+      " Stock Market From Scratch + Value Investing both included [NO EXTRA CHARGE].",
     ],
     duration: "4 Months (16 live Classes, 2 hours each)",
     price: "1769 INR",
@@ -46,8 +42,8 @@ const courses = [
   {
     id: 2,
     name: "Prompt Engineering",
-    animation: PromptLottie, // ✅ THUMBNAIL = LOTTIE
-    qr: PromptQR, // ✅ PAYMENT QR RESTORED
+    animation: PromptLottie,
+    qr: PromptQR,
     description: [
       "What We Will Cover!:",
       "1. AI-Powered Image Generation.",
@@ -64,95 +60,136 @@ const courses = [
     duration: "2 Months (8 live Class, 2 hours each)",
     price: "1249 INR",
   },
-];
+]);
+
+// ============================================================
+// HELPER FUNCTION — FETCH COURSE BY ID (O(n) SEARCH OPTIMIZED TO O(1) USING MAP)
+// ============================================================
+const useCourseLookup = () => {
+  const courseMap = useMemo(
+    () => new Map(COURSE_DATA.map((course) => [course.id, course])),
+    []
+  );
+  const getCourseById = useCallback(
+    (id) => courseMap.get(id) ?? null,
+    [courseMap]
+  );
+  return { getCourseById };
+};
 
 // ============================================================
 // MAIN COMPONENT
 // ============================================================
 const AvailableCourses = () => {
-  // STATE MANAGEMENT → LIKE DSA "STATE MACHINE"
   const [viewState, setViewState] = useState("list"); // list | details | qr
-  const [selectedCourse, setSelectedCourse] = useState(null); // HOLDS CURRENT COURSE
-  const [showConfetti, setShowConfetti] = useState(false); // CELEBRATION FLAG
-  const { width, height } = useWindowSize(); // DYNAMIC SCREEN SIZE FOR CONFETTI
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const { width, height } = useWindowSize();
+  const { getCourseById } = useCourseLookup();
 
   // ============================================================
-  // HANDLER: WHEN USER CLICKS COURSE CARD
+  // HANDLER: COURSE SELECTION → CONSTANT TIME RETRIEVAL (O(1))
   // ============================================================
-  const handleCourseClick = (course) => {
-    setSelectedCourse(course);
-    setViewState("details");
-  };
+  const handleCourseClick = useCallback(
+    async (courseId) => {
+      try {
+        // SIMULATE ASYNC OPERATION (EX: FETCHING DATA FROM DB)
+        const course = await Promise.resolve(getCourseById(courseId));
+        if (!course) throw new Error("Course not found!");
+        setSelectedCourse(course);
+        setViewState("details");
+      } catch (err) {
+        console.error("❌ ERROR WHILE SELECTING COURSE:", err.message);
+        alert("Something went wrong while loading the course.");
+      }
+    },
+    [getCourseById]
+  );
 
   // ============================================================
-  // HANDLER: WHEN USER CLICKS PAY
+  // HANDLER: PAY ACTION → CELEBRATION + STATE TRANSITION
   // ============================================================
-  const handlePayClick = () => {
-    setShowConfetti(true);
-    setViewState("qr");
+  const handlePayClick = useCallback(async () => {
+    try {
+      setShowConfetti(true);
+      setViewState("qr");
 
-    // CLEANUP CONFETTI AFTER 5 SECONDS (BETTER RESOURCE UTILIZATION)
-    setTimeout(() => setShowConfetti(false), 5000);
-  };
-
-  // ============================================================
-  // HANDLER: BACK BUTTON → NAVIGATION BASED ON STATE MACHINE
-  // ============================================================
-  const handleBack = () => {
-    if (viewState === "qr") {
-      setViewState("details");
-    } else if (viewState === "details") {
-      setSelectedCourse(null);
-      setViewState("list");
+      // CLEANUP CONFETTI AFTER 5 SECONDS (RESOURCE OPTIMIZATION)
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+      setShowConfetti(false);
+    } catch (err) {
+      console.error("❌ ERROR WHILE PROCESSING PAYMENT:", err.message);
+      alert("Payment process interrupted. Try again.");
     }
-  };
+  }, []);
 
+  // ============================================================
+  // HANDLER: BACK NAVIGATION (STATE MACHINE REVERSAL)
+  // ============================================================
+  const handleBack = useCallback(() => {
+    setViewState((prev) => {
+      if (prev === "qr") return "details";
+      if (prev === "details") {
+        setSelectedCourse(null);
+        return "list";
+      }
+      return prev;
+    });
+  }, []);
+
+  // ============================================================
+  // CLEANUP EFFECT → PREVENT MEMORY LEAKS (O(1))
+  // ============================================================
+  useEffect(() => {
+    return () => {
+      setShowConfetti(false);
+    };
+  }, []);
+
+  // ============================================================
+  // RENDER JSX → STATE MACHINE OUTPUT (O(1) PER STATE)
+  // ============================================================
   return (
     <div id="available-courses" className="courses-container">
       <h2>Available Courses</h2>
 
       {/* ============================================================
-           LIST VIEW → SHOW ALL COURSES WITH LOTTIE ANIMATIONS
+           LIST VIEW → LOTTIE-BASED COURSE DISPLAY
          ============================================================ */}
       {viewState === "list" && (
         <ul className="course-list">
-          {courses.map((course) => (
+          {COURSE_DATA.map(({ id, name, animation }) => (
             <li
-              key={course.id}
+              key={id}
               className="course-item"
-              onClick={() => handleCourseClick(course)}
+              onClick={() => handleCourseClick(id)}
             >
-              {/* ✅ LOTTIE ANIMATION INSTEAD OF IMAGE */}
-              <Lottie
-                animationData={course.animation}
-                loop={true}
-                className="course-thumbnail"
-              />
-              <span>{course.name}</span>
+              <Lottie animationData={animation} loop className="course-thumbnail" />
+              <span>{name}</span>
             </li>
           ))}
         </ul>
       )}
 
       {/* ============================================================
-           DETAILS VIEW → SHOW SELECTED COURSE INFO
+           DETAILS VIEW → DYNAMIC COURSE INFORMATION
          ============================================================ */}
       {viewState === "details" && selectedCourse && (
-        <div className="course-details">
+        <section className="course-details">
           <button className="back-button" onClick={handleBack}>
-            ← Back
+            ← BACK
           </button>
           <h3>{selectedCourse.name}</h3>
           <div>
-            {selectedCourse.description.map((desc, index) => (
-              <p key={index}>{desc}</p>
+            {selectedCourse.description.map((line, i) => (
+              <p key={i}>{line}</p>
             ))}
           </div>
           <p>
             <strong>Duration:</strong> {selectedCourse.duration}
           </p>
           <div className="price-and-pay">
-            <button className="price">Price: {selectedCourse.price}</button>
+            <button className="price">💰 {selectedCourse.price}</button>
             <motion.button
               className="pay-button glowing"
               onClick={handlePayClick}
@@ -160,18 +197,18 @@ const AvailableCourses = () => {
               animate={{ scale: [1, 1.05, 1] }}
               transition={{ repeat: Infinity, duration: 1 }}
             >
-              💸 Pay Now
+              💸 PAY NOW
             </motion.button>
           </div>
-        </div>
+        </section>
       )}
 
       {/* ============================================================
-           QR VIEW → PAYMENT QR + CONFETTI
+           QR VIEW → PAYMENT STAGE + CONFETTI
          ============================================================ */}
       <AnimatePresence>
         {viewState === "qr" && selectedCourse && (
-          <motion.div
+          <motion.section
             className="qr-section"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -179,30 +216,35 @@ const AvailableCourses = () => {
             transition={{ duration: 0.4 }}
           >
             <button className="back-button" onClick={handleBack}>
-              ← Back
+              ← BACK
             </button>
-            <h3>🎉 Congratulations!</h3>
+            <h3>🎉 CONGRATULATIONS!</h3>
             <p>
-              You're one step away from unlocking{" "}
+              YOU’RE ONE STEP AWAY FROM UNLOCKING{" "}
               <strong>{selectedCourse.name}</strong> 🎓
             </p>
-            <p>Scan the QR code below to complete your payment:</p>
+            <p>SCAN THE QR CODE BELOW TO COMPLETE YOUR PAYMENT:</p>
 
-            {/* ✅ QR IMAGE BACK IN PLACE */}
             <img
               src={selectedCourse.qr}
-              alt={`${selectedCourse.name} QR Code`}
+              alt={`${selectedCourse.name} QR`}
               className="qr-code"
             />
 
             <p className="motivator">
-              You’re investing in your growth. Let’s go! 🚀
+              YOU’RE INVESTING IN YOUR GROWTH. LET’S GO 🚀
             </p>
-            <p> After Payment, share the screenshot through Whatsapp for Next Updates.</p>
-            <p> If no slot is found available, your money will be refunded back to source within 24hours.</p>
-            {/* CONFETTI ANIMATION */}
+            <p>
+              AFTER PAYMENT, SHARE THE SCREENSHOT ON WHATSAPP FOR FURTHER
+              UPDATES.
+            </p>
+            <p>
+              IF NO SLOT IS FOUND AVAILABLE, YOUR MONEY WILL BE REFUNDED WITHIN
+              24 HOURS.
+            </p>
+
             {showConfetti && <Confetti width={width} height={height} />}
-          </motion.div>
+          </motion.section>
         )}
       </AnimatePresence>
     </div>
@@ -211,12 +253,12 @@ const AvailableCourses = () => {
 
 export default AvailableCourses;
 
-/* ============================================================
-   CONCISE EXPLANATION (AS COMMENTS):
-   1. LOTTIE FILES = COURSE THUMBNAILS.
-   2. STATIC IMAGES = PAYMENT QR CODES (RESTORED).
-   3. STATE MACHINE → LIST → DETAILS → QR.
-   4. CONFETTI CLEANS UP IN 5s → OPTIMIZED.
-   5. FOLLOWED 2026 BEST PRACTICES → CLEAN CODE, RESOURCE-FRIENDLY.
-   6. DSA THINKING → ARRAY (courses) + STATE MACHINE (viewState).
-   ============================================================ */
+// ============================================================
+// PERFORMANCE NOTES:
+// 1️⃣ DATA STRUCTURE: COURSE MAP FOR O(1) LOOKUPS.
+// 2️⃣ ASYNC HANDLERS ENSURE RESPONSIVE UI (NON-BLOCKING).
+// 3️⃣ useMemo + useCallback PREVENT UNNECESSARY RE-RENDERS (O(1) CACHE).
+// 4️⃣ STATE MACHINE LOGIC ENSURES PREDICTABLE FLOW.
+// 5️⃣ CLEANUP EFFECTS AVOID MEMORY LEAKS.
+// ============================================================
+

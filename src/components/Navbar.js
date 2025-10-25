@@ -1,5 +1,5 @@
 // ============================================================
-// NAVBAR COMPONENT — 2026 READY
+// NAVBAR COMPONENT — VERSION 1.1.4
 // FAST, CLEAN, AND PERFORMANCE-OPTIMIZED
 // PURELY UI — LINKS TO SECTIONS WITHOUT LAG
 // ============================================================

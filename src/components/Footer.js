@@ -1,5 +1,5 @@
 // ============================================================
-// 🧩 FOOTER COMPONENT — SYNCED WITH LATEST VERSION 1.1.4
+// 🧩 FOOTER COMPONENT — VERSION 1.1.4
 // ------------------------------------------------------------
 // AUTHOR: TEAM OPENROOT
 // DATE: OCTOBER 2025
@@ -10,58 +10,76 @@ import { motion } from 'framer-motion';
 import '../styles/Footer.css';
 
 // ---------- IMPORTED ICONS ----------
-import WhatsAppLogo from '../assets/whatsapp-logo.png';
-import GmailLogo from '../assets/gmail-logo.png';
-import InstagramLogo from '../assets/instagram-logo.png';
-import YouTubeLogo from '../assets/youtube-logo.png';
-import FacebookLogo from '../assets/facebook-logo.png';
-import TwitterLogo from '../assets/twitter-logo.png';
+import WhatsAppLogo from '../assets/whatsapp.svg';
+import GmailLogo from '../assets/gmail.svg';
+import InstagramLogo from '../assets/instagram.svg';
+import YouTubeLogo from '../assets/youtube.svg';
+import FacebookLogo from '../assets/facebook.svg';
+import TwitterLogo from '../assets/x.png';
 
 // ---------- CONSTANT LINKS ----------
 const FOUNDER_DETAILS_URL = 'https://www.xfactorial.online/Other-files/founder.html';
 const TERMS_PAGE_URL = 'https://www.xfactorial.online/Other-files/terms.html';
-const TYPEWRITER_TEXT = 'REDEFINE LEARNING.';
+const TYPEWRITER_TEXT = 'GOOD THINGS TAKE TIME!';
 
 // ============================================================
 // TYPEWRITER COMPONENT — HANDLES TEXT ANIMATION SAFELY
 // ============================================================
 const Typewriter = () => {
-  const [display, setDisplay] = useState('');
-  const [deleting, setDeleting] = useState(false);
+  const TYPEWRITER_TEXT = "GOOD THINGS TAKE TIME!";
+
+  const [display, setDisplay] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
   const [pause, setPause] = useState(false);
 
   useEffect(() => {
-    const fullText = TYPEWRITER_TEXT;
     let timer;
+    const fullText = TYPEWRITER_TEXT;
 
+    // 🧩 CASE 1: WHEN WE ARE PAUSED (AFTER DELETE COMPLETE)
     if (pause) {
       timer = setTimeout(() => {
         setPause(false);
-        setDeleting(false);
-      }, 8000);
+        setIsDeleting(false);
+      }, 2000); // 2 SEC PAUSE AFTER COMPLETE ERASE
       return () => clearTimeout(timer);
     }
 
-    if (!deleting) {
-      if (display.length < fullText.length) {
-        timer = setTimeout(() => setDisplay(fullText.slice(0, display.length + 1)), 180);
-      } else {
-        setDeleting(true);
-      }
-    } else {
-      if (display.length > 0) {
-        timer = setTimeout(() => setDisplay(fullText.slice(0, display.length - 1)), 80);
-      } else {
-        setPause(true);
-      }
+    // 🧩 CASE 2: WHEN WE ARE TYPING
+    if (!isDeleting && display.length < fullText.length) {
+      timer = setTimeout(
+        () => setDisplay(fullText.slice(0, display.length + 1)),
+        150
+      );
     }
 
+    // 🧩 CASE 3: WHEN TYPING COMPLETED — WAIT 5 SECONDS BEFORE DELETING
+    else if (!isDeleting && display.length === fullText.length) {
+      timer = setTimeout(() => {
+        setIsDeleting(true);
+      }, 5000); // 👈 THIS IS THE 5 SECOND READING DELAY
+    }
+
+    // 🧩 CASE 4: WHEN DELETING CHARACTERS
+    else if (isDeleting && display.length > 0) {
+      timer = setTimeout(
+        () => setDisplay(fullText.slice(0, display.length - 1)),
+        80
+      );
+    }
+
+    // 🧩 CASE 5: WHEN DELETE COMPLETE → SHORT PAUSE THEN RETYPE
+    else if (isDeleting && display.length === 0) {
+      setPause(true);
+    }
+
+    // ✅ CLEANUP TIMER TO PREVENT MEMORY LEAKS
     return () => clearTimeout(timer);
-  }, [display, deleting, pause]);
+  }, [display, isDeleting, pause]);
 
   return (
     <div className="typewriter-text">
-      <span style={{ fontWeight: 'bold' }}>{display}</span>
+      <span style={{ fontWeight: "bold" }}>{display}</span>
       <span className="cursor">|</span>
     </div>
   );

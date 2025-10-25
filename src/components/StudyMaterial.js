@@ -1,7 +1,6 @@
 // ============================================================
-// STUDY MATERIAL COMPONENT — CLEAN + STABLE VERSION
+// STUDY MATERIAL COMPONENT — CLEAN + STABLE -- VERSION 1.1.4
 // MAX 2 ROWS VISIBLE, VIEW-MORE TILE INSIDE GRID
-// COLS: MOBILE=3, MEDIUM=4, LARGE=5
 // ============================================================
 
 import { useCallback, useEffect, useState } from "react";

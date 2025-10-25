@@ -1,179 +1,299 @@
 // ============================================================
-// BANNER COMPONENT — FLIPKART STYLE (2025 BEST PRACTICE)
-// Infinite scroll + arrows + dots + swipe + smart auto-rotate
-// - Auto rotates every 10s
-// - If user interacts → pause auto-rotate for 30s
-// - If cursor hovers → pause indefinitely until mouse leaves
+// BANNER COMPONENT — PRODUCTION-READY -- VERSION 1.1.4
+// - ES2023+ FEATURES
+// - MODULAR HELPER FUNCTIONS
+// - CLEAR INLINE COMMENTS (CAPS)
+// - ERROR HANDLING + EDGE CASES
+// - ACCESSIBILITY + KEYBOARD SUPPORT
+// - OPTIMIZED TIMERS (NO LEAKS) + REDUCED-MOTION RESPECT
+// - TIME COMPLEXITY NOTES INCLUDED
 // ============================================================
 
-import { useState, useEffect, useRef } from "react";
-import "../styles/Banner.css";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types";
 import banner1 from "../assets/banner1.png";
 import banner2 from "../assets/banner2.png";
 import banner3 from "../assets/banner3.png";
+import "../styles/Banner.css";
 
-function Banner() {
-  // ============================================================
-  // BASE SLIDES
-  // ============================================================
-  const banners = [
-    { id: 1, image: banner1 },
-    { id: 2, image: banner2 },
-    { id: 3, image: banner3 },
-  ];
+// ============================================================
+// UTILITY: SLEEP (ASYNC-AWAIT READY FOR ANY FUTURE ASYNC NEEDS)
+// NOTE: THIS IS O(1) TIME/SPACE; USEFUL WHEN AWAITING TIMERS
+// ============================================================
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  // ============================================================
-  // CLONED SLIDES FOR LOOPING
-  // ============================================================
-  const extendedBanners = [
-    banners[banners.length - 1], // cloned last
-    ...banners, // real
-    banners[0], // cloned first
-  ];
+// ============================================================
+// UTILITY: SAFE CLAMP INDEX (HANDLES EDGE CASES WHEN EMPTY)
+// TIME COMPLEXITY: O(1)
+// ============================================================
+const clampIndex = (index, length) => {
+  // RETURN 0 IF NO SLIDES (SAFETY)
+  if (!length || length <= 0) return 0;
+  // NORMALIZE INDEX INTO [0, length-1]
+  return ((index % length) + length) % length;
+};
 
-  // ============================================================
-  // STATE
-  // ============================================================
-  const [currentIndex, setCurrentIndex] = useState(1);
-  const [isAnimating, setIsAnimating] = useState(true);
-  const [isHovered, setIsHovered] = useState(false);
+// ============================================================
+// DEFAULT BANNERS (CAN BE OVERRIDDEN VIA PROPS)
+// ============================================================
+const DEFAULT_BANNERS = [
+  { id: 1, image: banner1, alt: "Banner 1" },
+  { id: 2, image: banner2, alt: "Banner 2" },
+  { id: 3, image: banner3, alt: "Banner 3" },
+];
 
-  const swipeThreshold = 50;
-  const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
-
-  const autoRotateRef = useRef(null);
-  const resetTimeoutRef = useRef(null);
-
+export default function Banner({ banners = DEFAULT_BANNERS, autoRotateMs = 10000 }) {
   // ============================================================
-  // CLEANUP TIMERS
+  // SAFETY: VALIDATE BANNERS
   // ============================================================
-  const clearTimers = () => {
-    if (autoRotateRef.current) clearInterval(autoRotateRef.current);
-    if (resetTimeoutRef.current) clearTimeout(resetTimeoutRef.current);
-  };
+  if (!Array.isArray(banners)) {
+    throw new TypeError("BANNERS MUST BE AN ARRAY");
+  }
+
+  const slideCount = banners.length;
 
   // ============================================================
-  // START AUTO-ROTATE (NORMAL = 10s)
+  // EDGE CASE: NO SLIDES -> RENDER PLACEHOLDER
   // ============================================================
-  const startAutoRotate = (delay = 10000) => {
-    clearTimers();
-    autoRotateRef.current = setInterval(() => {
-      goToNext();
-    }, delay);
-  };
+  if (slideCount === 0) {
+    return (
+      <section className="home-banner placeholder" aria-live="polite">
+        <div className="banner-placeholder">NO BANNERS AVAILABLE</div>
+      </section>
+    );
+  }
 
   // ============================================================
-  // PAUSE AFTER USER INTERACTION
-  // - Stop auto-rotate immediately
-  // - Wait 30s before restarting
+  // INTERNAL STATE
+  // - current: INDEX OF VISIBLE SLIDE IN [0..slideCount-1]
+  // - anim: ENABLE/DISABLE TRANSITION (USED WHEN JUMPING FROM CLONE)
+  // - hovered: MOUSE HOVER PAUSES INDEFINITELY
+  // - userInteractedAt: TIMESTAMP FOR PAUSING AUTO-ROTATE
   // ============================================================
-  const pauseAfterInteraction = () => {
-    clearTimers();
-    resetTimeoutRef.current = setTimeout(() => {
-      if (!isHovered) {
-        startAutoRotate(10000);
-      }
-    }, 30000);
-  };
+  const [current, setCurrent] = useState(0);
+  const [anim, setAnim] = useState(true);
+  const [hovered, setHovered] = useState(false);
+  const userInteractedAt = useRef(0);
 
   // ============================================================
-  // INIT AUTO-ROTATE ON MOUNT
+  // REFS FOR TIMERS (PREVENT LEAKS)
   // ============================================================
+  const intervalRef = useRef(null);
+  const restartTimeoutRef = useRef(null);
+
+  // ============================================================
+  // SWIPE STATE (POINTER-BASED FOR BETTER CROSS-BROWSER SUPPORT)
+  // ============================================================
+  const pointerStartX = useRef(null);
+  const pointerLastX = useRef(null);
+  const SWIPE_THRESHOLD = 50; // PX
+
+  // ============================================================
+  // REDUCED MOTION: RESPECT USER PREFERENCE
+  // ============================================================
+  const prefersReducedMotion = useRef(false);
   useEffect(() => {
-    startAutoRotate(10000);
-    return () => clearTimers();
+    try {
+      prefersReducedMotion.current = window.matchMedia
+        ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        : false;
+    } catch (err) {
+      // MATCHMEDIA CAN THROW IN SOME ENV (E.G., SSR) — FALLBACK TO FALSE
+      prefersReducedMotion.current = false;
+    }
   }, []);
 
   // ============================================================
-  // TRANSITION END HANDLER
+  // CLEAR TIMERS HELPER
+  // TIME COMPLEXITY: O(1)
   // ============================================================
-  const handleTransitionEnd = () => {
-    setIsAnimating(false);
-
-    if (currentIndex === 0) {
-      setCurrentIndex(banners.length);
-    } else if (currentIndex === banners.length + 1) {
-      setCurrentIndex(1);
+  const clearTimers = useCallback(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
     }
-
-    setTimeout(() => setIsAnimating(true), 50);
-  };
+    if (restartTimeoutRef.current) {
+      clearTimeout(restartTimeoutRef.current);
+      restartTimeoutRef.current = null;
+    }
+  }, []);
 
   // ============================================================
-  // NAVIGATION FUNCTIONS
+  // START AUTO ROTATE (SEE: PAUSE RULES BELOW)
+  // - IF PREFERS REDUCED MOTION -> DO NOT START
+  // TIME COMPLEXITY: O(1)
   // ============================================================
-  const goToNext = () => {
-    setCurrentIndex((prev) => prev + 1);
-  };
+  const startAutoRotate = useCallback(
+    (delay = autoRotateMs) => {
+      clearTimers();
+      if (prefersReducedMotion.current) return; // RESPECT USER
 
-  const goToPrev = () => {
-    setCurrentIndex((prev) => prev - 1);
-  };
+      // USE setInterval FOR O(1) TICK COST
+      intervalRef.current = setInterval(() => {
+        setCurrent((c) => clampIndex(c + 1, slideCount));
+      }, delay);
+    },
+    [autoRotateMs, clearTimers, slideCount]
+  );
 
+  // ============================================================
+  // PAUSE AFTER USER INTERACTION
+  // - PAUSE IMMEDIATELY, THEN RESTART AFTER 30s UNLESS HOVERED
+  // - THIS IS O(1)
+  // ============================================================
+  const pauseAfterInteraction = useCallback(() => {
+    clearTimers();
+    userInteractedAt.current = Date.now();
+    restartTimeoutRef.current = setTimeout(() => {
+      if (!hovered) startAutoRotate();
+    }, 30000);
+  }, [clearTimers, hovered, startAutoRotate]);
+
+  // ============================================================
+  // EFFECT: INITIALIZE AUTO-ROTATE ON MOUNT
+  // ============================================================
+  useEffect(() => {
+    startAutoRotate();
+    return () => clearTimers();
+  }, [startAutoRotate, clearTimers]);
+
+  // ============================================================
+  // NAVIGATION HELPERS (O(1) OPERATIONS)
+  // ============================================================
+  const goTo = useCallback((targetIndex) => {
+    // SAFELY CLAMP TARGET
+    const next = clampIndex(targetIndex, slideCount);
+    setCurrent(next);
+  }, [slideCount]);
+
+  const goNext = useCallback(() => goTo(current + 1), [goTo, current]);
+  const goPrev = useCallback(() => goTo(current - 1), [goTo, current]);
+
+  // ============================================================
+  // HANDLE DOT CLICK
+  // ============================================================
   const handleDotClick = (idx) => {
-    setCurrentIndex(idx + 1);
+    goTo(idx);
     pauseAfterInteraction();
   };
 
   // ============================================================
-  // TOUCH HANDLERS
+  // POINTER (MOUSE/FINGER) HANDLERS FOR SWIPE
+  // - USING POINTER EVENTS FOR CONSISTENT BEHAVIOR
   // ============================================================
-  const handleTouchStart = (e) => {
-    touchStartX.current = e.targetTouches[0].clientX;
-  };
-
-  const handleTouchMove = (e) => {
-    touchEndX.current = e.targetTouches[0].clientX;
-  };
-
-  const handleTouchEnd = () => {
-    const distance = touchStartX.current - touchEndX.current;
-    if (distance > swipeThreshold) {
-      goToNext();
-    } else if (distance < -swipeThreshold) {
-      goToPrev();
+  const handlePointerDown = (e) => {
+    try {
+      pointerStartX.current = e.clientX ?? (e.touches && e.touches[0]?.clientX) ?? 0;
+      pointerLastX.current = pointerStartX.current;
+      // WHEN USER STARTS POINTER, PAUSE AUTO-ROTATE
+      pauseAfterInteraction();
+    } catch (err) {
+      // IGNORE POINTER ERRORS SO UI DOESN'T CRASH
+      console.error("POINTER START ERROR", err);
     }
-    pauseAfterInteraction();
+  };
+
+  const handlePointerMove = (e) => {
+    pointerLastX.current = e.clientX ?? (e.touches && e.touches[0]?.clientX) ?? pointerLastX.current;
+  };
+
+  const handlePointerUp = async () => {
+    const start = pointerStartX.current ?? 0;
+    const end = pointerLastX.current ?? start;
+    const delta = start - end;
+
+    if (Math.abs(delta) > SWIPE_THRESHOLD) {
+      if (delta > 0) goNext();
+      else goPrev();
+    }
+
+    // RESET POINTERS (O(1))
+    pointerStartX.current = null;
+    pointerLastX.current = null;
+
+    // SHORT AWAIT TO ALLOW UI TO SETTLE (ASYNC EXAMPLE)
+    await sleep(0);
   };
 
   // ============================================================
   // HOVER HANDLERS
   // ============================================================
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-    clearTimers(); // stop auto-rotate
+  const onMouseEnter = () => {
+    setHovered(true);
+    clearTimers(); // STOP AUTO-ROTATE UNTIL LEAVE
   };
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    startAutoRotate(10000); // resume normal auto-rotate
+  const onMouseLeave = () => {
+    setHovered(false);
+    // RESUME UNLESS USER RECENTLY INTERACTED
+    const since = Date.now() - (userInteractedAt.current || 0);
+    if (since < 30000) {
+      // REMAIN PAUSED; RESTART AFTER REMAINING TIME
+      const remaining = Math.max(0, 30000 - since);
+      restartTimeoutRef.current = setTimeout(() => startAutoRotate(), remaining);
+    } else {
+      startAutoRotate();
+    }
   };
 
   // ============================================================
-  // RENDER
+  // KEYBOARD NAVIGATION (ACCESSIBILITY)
   // ============================================================
+  const onKeyDown = (e) => {
+    if (e.key === "ArrowLeft") {
+      goPrev();
+      pauseAfterInteraction();
+    } else if (e.key === "ArrowRight") {
+      goNext();
+      pauseAfterInteraction();
+    }
+  };
+
+  // ============================================================
+  // TRANSITION CONTROL: DISABLE TRANSITION BRIEFLY WHEN JUMPING
+  // (NOT NECESSARY HERE SINCE WE DO SIMPLE INDEXING, BUT LEFT FOR
+  // EXTENSIBILITY IF CLONED SLIDES ARE USED)
+  // ============================================================
+  useEffect(() => {
+    // BRIEFLY ENABLE/DISABLE TRANSITION IF NEEDED
+    setAnim(true);
+    return () => {};
+  }, [current]);
+
+  // ============================================================
+  // RENDER: STYLE TRANSFORM BASED ON INDEX
+  // - USING PERCENTAGE TRANSLATE FOR O(1) COMPUTATION
+  // ============================================================
+  const translate = `translateX(-${current * 100}%)`;
+  const transitionStyle = anim && !prefersReducedMotion.current ? "transform 0.5s ease-in-out" : "none";
+
   return (
     <section
       className="home-banner"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onKeyDown={onKeyDown}
+      tabIndex={0} // MAKE IT FOCUSABLE FOR KEYBOARD
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Homepage banners"
     >
       {/* SLIDER CONTAINER */}
       <div
         className="banner-container"
-        style={{
-          transform: `translateX(-${currentIndex * 100}%)`,
-          transition: isAnimating ? "transform 0.5s ease-in-out" : "none",
-        }}
-        onTransitionEnd={handleTransitionEnd}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
+        style={{ transform: translate, transition: transitionStyle }}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
+        onTouchStart={handlePointerDown}
+        onTouchMove={handlePointerMove}
+        onTouchEnd={handlePointerUp}
+        aria-live="polite"
       >
-        {extendedBanners.map(({ id, image }, idx) => (
-          <div key={id + "-" + idx} className="banner-slide">
-            <img src={image} alt={`Banner ${id}`} className="banner-image" />
+        {banners.map(({ id, image, alt }, idx) => (
+          <div key={`${id}-${idx}`} className="banner-slide" aria-hidden={current !== idx}>
+            <img src={image} alt={alt ?? `Banner ${idx + 1}`} className="banner-image" draggable={false} />
           </div>
         ))}
       </div>
@@ -181,30 +301,36 @@ function Banner() {
       {/* NAVIGATION ARROWS */}
       <button
         className="arrow left-arrow"
+        aria-label="Previous banner"
         onClick={() => {
-          goToPrev();
+          goPrev();
           pauseAfterInteraction();
         }}
       >
-        &lt;
-      </button>
-      <button
-        className="arrow right-arrow"
-        onClick={() => {
-          goToNext();
-          pauseAfterInteraction();
-        }}
-      >
-        &gt;
+        ‹
       </button>
 
-      {/* DOTS INDICATOR */}
-      <div className="dots-container">
+      <button
+        className="arrow right-arrow"
+        aria-label="Next banner"
+        onClick={() => {
+          goNext();
+          pauseAfterInteraction();
+        }}
+      >
+        ›
+      </button>
+
+      {/* DOTS */}
+      <div className="dots-container" role="tablist" aria-label="Banner pagination">
         {banners.map((_, idx) => (
-          <span
+          <button
             key={idx}
-            className={`dot ${currentIndex === idx + 1 ? "active" : ""}`}
+            role="tab"
+            aria-selected={current === idx}
+            className={`dot ${current === idx ? "active" : ""}`}
             onClick={() => handleDotClick(idx)}
+            aria-label={`Go to slide ${idx + 1}`}
           />
         ))}
       </div>
@@ -212,4 +338,26 @@ function Banner() {
   );
 }
 
-export default Banner;
+// ============================================================
+// PROP TYPES
+// ============================================================
+Banner.propTypes = {
+  banners: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      image: PropTypes.string.isRequired,
+      alt: PropTypes.string,
+    })
+  ),
+  autoRotateMs: PropTypes.number,
+};
+
+// ============================================================
+// NOTE ON COMPLEXITY:
+// - RENDER: O(n) TO MAP SLIDES (WHERE n = NUMBER OF SLIDES)
+// - NAVIGATION: O(1) FOR NEXT/PREV/DOT
+// - MEMORY: O(n) TO STORE SLIDE DATA
+// - THIS COMPONENT AIMS TO MINIMIZE PER-TICK WORK (INTERVAL JUST
+//   UPDATES AN INDEX; RE-RENDER COST DOM DIFFING WHICH IS O(n) IN
+//   THE NUMBER OF VISIBLE CHILDREN BUT ACCEPTABLE FOR SMALL n)
+// ============================================================

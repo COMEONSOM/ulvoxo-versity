@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.a17fa0db.css",
-    "main.js": "/static/js/main.137cecf2.js",
+    "main.css": "/static/css/main.1c14cce7.css",
+    "main.js": "/static/js/main.f7a4df31.js",
     "static/media/banner3.png": "/static/media/banner3.8289bfcae546ca20d2cb.png",
     "static/media/banner2.png": "/static/media/banner2.8872d53cfee5a3132466.png",
     "static/media/banner1.png": "/static/media/banner1.034ce360f66754de2297.png",
@@ -16,16 +16,16 @@
     "static/media/fa-regular-400.ttf": "/static/media/fa-regular-400.914997e1bdfc990d0897.ttf",
     "static/media/whatsapp-logo.png": "/static/media/whatsapp-logo.31d4b1d27126bcc1f665.png",
     "static/media/facebook-logo.png": "/static/media/facebook-logo.790642551cd99bb66a7e.png",
+    "static/media/open-root-light.png": "/static/media/open-root-light.f5f5414c997a58d413b6.png",
     "static/media/fa-regular-400.woff2": "/static/media/fa-regular-400.89999bdf5d835c012025.woff2",
     "static/media/fa-v4compatibility.ttf": "/static/media/fa-v4compatibility.da94ef451f4969af06e6.ttf",
     "static/media/fa-v4compatibility.woff2": "/static/media/fa-v4compatibility.ea8f94e1d22e0d35ccd4.woff2",
     "index.html": "/index.html",
-    "static/media/openroot-logo.svg": "/static/media/openroot-logo.ca0796614196e72609355ca74d64e77f.svg",
-    "main.a17fa0db.css.map": "/static/css/main.a17fa0db.css.map",
-    "main.137cecf2.js.map": "/static/js/main.137cecf2.js.map"
+    "main.1c14cce7.css.map": "/static/css/main.1c14cce7.css.map",
+    "main.f7a4df31.js.map": "/static/js/main.f7a4df31.js.map"
   },
   "entrypoints": [
-    "static/css/main.a17fa0db.css",
-    "static/js/main.137cecf2.js"
+    "static/css/main.1c14cce7.css",
+    "static/js/main.f7a4df31.js"
   ]
 }
