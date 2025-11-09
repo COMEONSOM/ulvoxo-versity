@@ -18,8 +18,8 @@ import FacebookLogo from '../assets/facebook.svg';
 import TwitterLogo from '../assets/x.png';
 
 // ---------- CONSTANT LINKS ----------
-const FOUNDER_DETAILS_URL = 'https://www.xfactorial.online/Other-files/founder.html';
-const TERMS_PAGE_URL = 'https://www.xfactorial.online/Other-files/terms.html';
+const FOUNDER_DETAILS_URL = 'https://comeonsom.github.io/openroot-helping-hand/other_files/founder.html';
+const TERMS_PAGE_URL = 'https://comeonsom.github.io/openroot-helping-hand/other_files/terms.html';
 const TYPEWRITER_TEXT = 'GOOD THINGS TAKE TIME!';
 
 // ============================================================
