@@ -73,4 +73,9 @@ p {
   cursor: pointer;       /* Pointer cursor on hover */
 }
 
-/* Add more styles as needed */
+/* ✅ OFFSET ANCHOR TARGETS BELOW STICKY NAVBAR */
+section[id],
+div[id] {
+  scroll-margin-top: 2rem;  /* or match your navbar height */
+}
+

@@ -1,5 +1,5 @@
 /* ============================================================
-   🌐 FOOTER STYLES — VERSION 1.1.4
+   🌐 FOOTER STYLES — VERSION 1.1.6 (FINAL POLISHED)
    FULLY RESPONSIVE | HIGHLY SCALABLE | UX-OPTIMIZED
    AUTHOR: TEAM OPENROOT
    ============================================================ */
@@ -8,7 +8,7 @@
    1️⃣ DESIGN TOKENS — UNIVERSAL VARIABLES
    ============================================================ */
 :root {
-  --clr-bg: #32323200;
+  --clr-bg: transparent;
   --clr-surface: #000000;
   --clr-surface-alt: #ffffff;
   --clr-text: #e5e8ff;
@@ -17,29 +17,21 @@
 
   --neu-offset: 8px;
   --neu-blur: 16px;
-  --neu-light: rgba(0, 0, 0, 0.55);
-  --neu-dark: rgba(0, 0, 0, 0.55);
+  --neu-light: rgba(255, 255, 255, 0.08);
+  --neu-dark: rgba(0, 0, 0, 0.45);
 
-  --r-xs: 4px;
   --r-sm: 8px;
   --r-md: 12px;
-  --r-lg: 16px;
-  --r-xl: 24px;
 
   --s-xs: 0.4rem;
   --s-sm: 0.8rem;
   --s-md: 1.2rem;
   --s-lg: 1.6rem;
-  --s-xl: 2.4rem;
-  --s-xxl: 3rem;
 
   --font-base: 'Inter', 'Segoe UI', sans-serif;
-  --fs-xs: 0.75rem;
   --fs-sm: 0.9rem;
   --fs-md: 1rem;
   --fs-lg: 1.1rem;
-  --fs-xl: 1.25rem;
-  --fs-xxl: 1.5rem;
 
   --transition-fast: 0.18s ease-out;
   --transition-medium: 0.25s ease;
@@ -47,8 +39,6 @@
 
   --bp-xs: 480px;
   --bp-sm: 767px;
-  --bp-md: 1024px;
-  --bp-lg: 1440px;
 }
 
 /* ============================================================
@@ -75,10 +65,9 @@
 }
 
 /* ============================================================
-   4️⃣ UNIVERSAL CARD STYLES — CONTACT + FOLLOW + TYPEWRITER
+   4️⃣ CARD STYLES — CONTACT, FOLLOW, TYPEWRITER BASE
    ============================================================ */
-.contact-section,
-.follow-us-section {
+.card {
   background: var(--clr-surface);
   border-radius: var(--r-sm);
   padding: var(--s-md);
@@ -97,46 +86,94 @@
   font-weight: 600;
 }
 
-.button-icon {
-  width: 1.3rem;
-  height: 1.3rem;
+/* add margin for visual balance */
+.follow-us-heading {
+  margin-bottom: var(--s-sm);
 }
 
-.social-icons,
-.button-container {
+/* ensure .follow-us-section is styled explicitly */
+.follow-us-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ============================================================
+   5️⃣ CONTACT + SOCIAL ICONS
+   ============================================================ */
+.button-container,
+.social-icons {
   display: flex;
   gap: var(--s-sm);
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.social-icons a img,
-.contact-whatsapp-button,
-.contact-email-button {
-  width: auto;
-  max-height: 2.5rem;
-  padding: var(--s-xs);
-  border-radius: var(--r-md);
-  background: var(--clr-surface-alt);
-  box-shadow:
-    inset calc(var(--neu-offset)/5) calc(var(--neu-offset)/5) var(--neu-blur) var(--neu-dark),
-    inset calc(-1*var(--neu-offset)/5) calc(-1*var(--neu-offset)/5) var(--neu-blur) var(--neu-light);
+.icon-button,
+.social-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  padding: 0.25rem;
+  border-radius: 50%;
+  background: transparent;
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
   will-change: transform, box-shadow;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
 }
 
-.social-icons a:hover img,
-.contact-whatsapp-button:hover,
-.contact-email-button:hover {
+.icon-button img,
+.social-icons a img {
+  width: 1.6rem;
+  height: 1.6rem;
+  display: block;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  padding: 0;
+  border-radius: 0;
+  filter: none;
+}
+
+.icon-button:hover,
+.social-icons a:hover,
+.icon-button:focus,
+.social-icons a:focus {
   transform: translateY(-4px);
-  box-shadow: 0 0 8px var(--clr-accent), 0 0 16px var(--clr-accent-glow);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35),
+              0 0 8px var(--clr-accent),
+              0 0 18px var(--clr-accent-glow);
+  outline: none;
+}
+
+/* reduce motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .icon-button,
+  .social-icons a {
+    transition: none;
+  }
+  .icon-button:hover,
+  .social-icons a:hover {
+    transform: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  }
+}
+
+/* target Gmail / WhatsApp by filename if needed */
+.social-icons a[href*="gmail"] img,
+.social-icons a[href*="whatsapp"] img {
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 /* ============================================================
-   5️⃣ TYPEWRITER STYLES
+   6️⃣ TYPEWRITER STYLES
    ============================================================ */
 .typewriter-wrapper {
-  background: #e6f5cb;
+  background: linear-gradient(145deg, #c7cfff, #eef0ff);
   border-radius: var(--r-sm);
   padding: var(--s-md);
   display: flex;
@@ -149,7 +186,6 @@
 }
 
 .typewriter-text {
-  font-family: monospace;
   white-space: nowrap;
   font-size: var(--fs-md);
   overflow: hidden;
@@ -167,7 +203,7 @@
 }
 
 /* ============================================================
-   6️⃣ FOOTER STRIP
+   7️⃣ FOOTER STRIP
    ============================================================ */
 .footer {
   background: var(--clr-surface);
@@ -175,7 +211,7 @@
   padding: var(--s-md) var(--s-sm);
   text-align: center;
   font-size: var(--fs-sm);
-  border-top: 1px solid var(--neu-light);
+  border-top: 1px solid var(--neu-dark);
 }
 
 .footer p {
@@ -189,7 +225,8 @@
   transition: color var(--transition-medium), text-shadow var(--transition-medium);
 }
 
-.clickable-text:hover {
+.clickable-text:hover,
+.clickable-text:focus-visible {
   color: #ffffff;
   text-shadow: 0 0 6px var(--clr-accent), 0 0 12px var(--clr-accent-glow);
 }
@@ -207,53 +244,46 @@
   transition: transform var(--transition-medium);
 }
 
-.clickable-text:hover::after {
+.clickable-text:hover::after,
+.clickable-text:focus-visible::after {
   transform: scaleX(1);
 }
 
 /* ============================================================
-   7️⃣ RESPONSIVE ENHANCEMENTS
+   8️⃣ RESPONSIVE ENHANCEMENTS
    ============================================================ */
-
-/* EXTRA SMALL SCREENS — PHONES */
 @media (max-width: var(--bp-xs)) {
   .contact-container {
     padding: var(--s-sm);
   }
-  .contact-section,
-  .follow-us-section,
-  .typewriter-wrapper {
+
+  .card {
     padding: var(--s-sm);
     min-height: 120px;
   }
-  .social-icons a img,
-  .contact-whatsapp-button,
-  .contact-email-button {
-    width: 2rem;
-    height: 2rem;
+
+  .icon-button img,
+  .social-icons a img {
+    width: 1.8rem;
+    height: 1.8rem;
   }
 }
 
-/* SMALL DEVICES — MOBILE LANDSCAPE / SMALL TABLETS */
 @media (min-width: calc(var(--bp-xs) + 1px)) and (max-width: var(--bp-sm)) {
-  .social-icons a img,
-  .contact-whatsapp-button,
-  .contact-email-button {
-    width: 2.25rem;
-    height: 2.25rem;
+  .icon-button img,
+  .social-icons a img {
+    width: 2.2rem;
+    height: 2.2rem;
   }
 }
 
-/* MEDIUM DEVICES & UP — TABLETS, DESKTOPS */
 @media (min-width: 768px) {
   .contact-follow-wrapper {
     grid-template-columns: repeat(3, 1fr);
     gap: var(--s-md);
   }
 
-  .contact-section,
-  .follow-us-section,
-  .typewriter-wrapper {
+  .card {
     min-height: 180px;
   }
 }

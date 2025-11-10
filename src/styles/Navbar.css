@@ -8,7 +8,7 @@
 ─────────────────────────────────────────────── */
 :root {
   /* COLOR PALETTE */
-  --navbar-bg: #1a2847;           /* DARK SLATE BACKGROUND */
+  --navbar-bg: #000000e7;           /* DARK SLATE BACKGROUND */
   --navbar-text: #ffffff;         /* PRIMARY TEXT COLOR */
   --navbar-hover: #61a0ff;        /* HOVER / INTERACTIVE HIGHLIGHT */
   --navbar-active: #0047b3;       /* ACTIVE BUTTON STATE */

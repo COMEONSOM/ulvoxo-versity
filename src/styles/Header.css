@@ -12,7 +12,7 @@
   --color-primary-dark: #1e40af;   /* DARKER BLUE (HOVER/FOCUS) */
   --color-text: #111827;           /* NEUTRAL TEXT COLOR */
   --color-subtext: #6b7280;        /* MUTED GRAY FOR SLOGAN */
-  --color-bg: #ffffff;             /* HEADER BACKGROUND */
+  --color-bg: #000000e7;             /* HEADER BACKGROUND */
   --color-border: #e5e7eb;         /* LIGHT BORDER GRAY */
 
   --font-family: "Inter", "Segoe UI", sans-serif;       /* SMALL DEVICES */
@@ -22,9 +22,9 @@
   --spacing-md: 0.8rem;
   --spacing-lg: 1rem;
 
-  --logo-size-mobile: 120px;
-  --logo-size-tablet: 140px;
-  --logo-size-desktop: 160px;
+  --logo-size-mobile: 100px;
+  --logo-size-tablet: 120px;
+  --logo-size-desktop: 140px;
 }
 
 /* ============================================================
@@ -35,8 +35,8 @@
   display: flex;
   justify-content: flex-start; /* ALWAYS LEFT */
   align-items: center;
+  border-bottom: #ffffff;
   padding: var(--spacing-md) var(--spacing-lg);
-  margin: 6px 0;
   background-color: var(--color-bg);
   font-family: var(--font-family);
   position: relative;
@@ -55,7 +55,8 @@
 
 /* COMPANY LOGO */
 .company-logo {
-  width: 90px;
+  width: 80px;
+  margin-top: 10px;
   height: auto;
   object-fit: contain;
   border-radius: 8px;
@@ -64,8 +65,8 @@
 .brand-tag {
   font-family: "Poppins", "Inter", sans-serif;
   font-size: 1rem;
-  font-weight: 600;
-  color: #000000; /* Matches your openroot logo text */
+  font-weight: 400;
+  color: #ffffff; /* Matches your openroot logo text */
   letter-spacing: 0.5px;
   position: relative;
   top: 1px;

@@ -5,7 +5,7 @@
 // manforceutube
 
 import "../styles/Header.css"; // HEADER-SPECIFIC STYLES
-import logo from "../assets/open-root-light.png"; // COMPANY LOGO
+import logo from "../assets/openroot-white-nobg.png"; // COMPANY LOGO
 
 function Header() {
   return (

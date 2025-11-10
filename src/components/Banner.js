@@ -11,9 +11,9 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
-import banner1 from "../assets/banner1.png";
-import banner2 from "../assets/banner2.png";
-import banner3 from "../assets/banner3.png";
+import banner1 from "../assets/banner1.avif";
+import banner2 from "../assets/banner2.avif";
+import banner3 from "../assets/banner3.avif";
 import "../styles/Banner.css";
 
 // ============================================================

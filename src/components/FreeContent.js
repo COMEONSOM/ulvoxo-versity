@@ -1,6 +1,6 @@
 import '../styles/FreeContent.css';
 // Import thumbnail images from the assets folder
-import e1Thumbnail from '../assets/e1.png'; // Add more thumbnails as needed
+import e1Thumbnail from '../assets/e1.avif'; // Add more thumbnails as needed
 
 const FreeContent = () => {
   const videos = [

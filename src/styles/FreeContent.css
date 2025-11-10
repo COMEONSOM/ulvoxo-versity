@@ -20,8 +20,8 @@
 
     /* Spacing */
     --space-lg: 40px;
-    --space-md: 30px;
-    --space-sm: 15px;
+    --space-md: 32px;
+    --space-sm: 16px;
     --space-xs: 10px;
 
     /* Border Radius */
@@ -60,7 +60,7 @@ body {
 ─────────────────────────────────────── */
 
 .free-content-container {
-    margin: var(--space-lg);
+    margin: var(--space-md);
     padding: var(--space-md);
     border-radius: var(--radius-md);
     background-color: var(--color-bg-container);
