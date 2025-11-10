@@ -6,10 +6,10 @@ import '../styles/Footer.css';
 // ---------- IMPORTED ICONS ----------
 import WhatsAppLogo from '../assets/whatsapp.svg';
 import GmailLogo from '../assets/gmail.svg';
-import InstagramLogo from '../assets/instagram.svg';
+import DiscordLogo from '../assets/discord.svg';
 import YouTubeLogo from '../assets/youtube.svg';
-import FacebookLogo from '../assets/facebook.svg';
-import TwitterLogo from '../assets/x.svg';
+import FacebookLogo from '../assets/facebook.svg'; 
+import xLogo from '../assets/x.svg';
 
 // ---------- CONSTANT LINKS ----------
 const FOUNDER_DETAILS_URL = 'https://comeonsom.github.io/openroot-helping-hand/other_files/founder.html';
@@ -75,10 +75,10 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { href: 'https://www.instagram.com/xfactorial.in?utm_source=qr&igsh=bXNiNGFjcXFwcnVq', src: InstagramLogo, alt: 'Instagram' },
-    { href: 'https://youtube.com/@asversity_technologies?si=VM-w53FEMc9aeyiS', src: YouTubeLogo, alt: 'YouTube' },
-    { href: 'https://www.facebook.com/asversityfacebook...', src: FacebookLogo, alt: 'Facebook' },
-    { href: 'https://x.com/comeonsom_?t=GCaq6uE0FodJOuC8854iEg&s=09', src: TwitterLogo, alt: 'Twitter' },
+    { href: 'https://discord.com/users/1379877073631576095', src: DiscordLogo, alt: 'Discord' },
+    { href: 'https://www.youtube.com/@knowledge.openroot', src: YouTubeLogo, alt: 'YouTube' },
+    { href: 'https://www.facebook.com/share/14L7KqiQG5Z/', src: FacebookLogo, alt: 'Facebook' },
+    { href: 'https://x.com/comeonsom_?t=GCaq6uE0FodJOuC8854iEg&s=09', src: xLogo, alt: 'x' },
   ];
 
   return (
@@ -107,7 +107,7 @@ const Footer = () => {
                 aria-label="Contact via Email"
                 whileHover={{ y: -4 }}
                 whileTap={{ scale: 0.96 }}
-                onClick={() => openLinkSafely('https://mail.google.com/mail/?view=cm&fs=1&to=asversity.helpdesk@gmail.com')}
+                onClick={() => openLinkSafely('https://mail.google.com/mail/?view=cm&fs=1&to=connect.openroot@gmail.com')}
               >
                 <img src={GmailLogo} alt="Gmail" className="icon-img" />
               </motion.button>
@@ -144,7 +144,6 @@ const Footer = () => {
       </div>
 
       <footer className="footer" role="contentinfo">
-        <p>© {new Date().getFullYear()} OPENROOT. All rights reserved.</p>
         <p>
           <motion.span
             className="clickable-text"
@@ -166,6 +165,7 @@ const Footer = () => {
             Terms of Service
           </motion.span>
         </p>
+        <p>© {new Date().getFullYear()} OPENROOT. All rights reserved.</p>
       </footer>
     </>
   );
